@@ -1,31 +1,41 @@
-# react-apollo-graphql-test-app/traineeship_react-apollo-graphql-test-app
+# Traineeship React Apollo GraphQL Test App
 
+## Client Main Stack
 
+- [ESLint and Prettier](https://www.robertcooper.me/using-eslint-and-prettier-in-a-typescript-project)
+- [Typescript](https://www.typescriptlang.org/docs/handbook/jsx.html)
+- [Create React App](https://create-react-app.dev/)
+- [React Router Dom](https://reacttraining.com/react-router/web/guides/quick-start)
+- [React-Apollo with hooks](https://www.apollographql.com/docs/react/)
+- [Styled Components](https://www.styled-components.com/)
+- [React Hook Form](https://react-hook-form.com/)
+- [Ant Design](https://ant.design/)
+- [Plop.js Code Generator](https://plopjs.com/)
 
-## Getting Started
+## Server Main Stack
 
-Download links:
+- [Typescript](https://www.typescriptlang.org/docs/handbook/jsx.html)
+- Node.js
+- Express
+- Graphql
+- Apollo Server
+- Mongoose
+- MongoDB
+- [Plop.js Code Generator](https://plopjs.com/)
 
-SSH clone URL: ssh://git@git.jetbrains.space/dashbouquet/react-apollo-graphql-test-app/traineeship_react-apollo-graphql-test-app.git
-
-HTTPS clone URL: https://git.jetbrains.space/dashbouquet/react-apollo-graphql-test-app/traineeship_react-apollo-graphql-test-app.git
-
-
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-
-## Prerequisites
-
-What things you need to install the software and how to install them.
+### Installing
 
 ```
-Examples
+$ yarn
 ```
 
-## Deployment
+```
+$ yarn start
+```
 
-Add additional notes about how to deploy this on a production system.
+### Run tests
 
-## Resources
+```
+$ yarn test
+```
 
-Add links to external resources for this project, such as CI server, bug tracker, etc.
