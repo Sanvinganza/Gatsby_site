@@ -7,8 +7,9 @@ const theme = {
 export const colors = {
   grey1: '#1D1E2D',
   grey2: '#282939',
-  grey3: '#3A3A51',
-  grey4: '#A1A1B9',
+  grey3: '#42425C',
+  grey4: '#3A3A51',
+  grey5: '#A1A1B9',
   purple: '#BB6BD9',
 };
 

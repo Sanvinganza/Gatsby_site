@@ -8,8 +8,7 @@ interface IAuthProps {
 const Auth: React.FC<IAuthProps> = () => {
   return (
     <>
-      <Background />
-      <Logo />
+      
     </>
   );
 };
