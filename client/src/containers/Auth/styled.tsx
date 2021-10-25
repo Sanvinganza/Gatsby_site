@@ -45,7 +45,7 @@ export const InputStyle = {
   border: 0,
 } as React.CSSProperties;
 export const SignLink = styled(Link)`
-  font-family: SF UI  Text;
+  font-family: SF UI Text;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -55,7 +55,7 @@ export const SignLink = styled(Link)`
   color: #ffffff;
 `;
 export const ResetPasswordStyle = {
-  alignSelf: 'flex-end',  
+  alignSelf: 'flex-end',
 } as React.CSSProperties;
 export const SignForm = styled.div`
   display: flex;
@@ -63,9 +63,7 @@ export const SignForm = styled.div`
   justify-content: space-between;
   margin-top: 60px;
 `;
-export const SignUpStyle = {
-  
-} as React.CSSProperties;
+export const SignUpStyle = {} as React.CSSProperties;
 export const SignInStyle = {
   boxSizing: 'border-box',
   width: '125px',

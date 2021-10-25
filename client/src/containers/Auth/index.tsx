@@ -6,11 +6,7 @@ interface IAuthProps {
 }
 
 const Auth: React.FC<IAuthProps> = () => {
-  return (
-    <>
-      
-    </>
-  );
+  return <></>;
 };
 
 export default Auth;
