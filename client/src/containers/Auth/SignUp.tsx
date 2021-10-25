@@ -48,10 +48,10 @@ const SignUp: React.FC<any> = () => {
           style={InputStyle}
         />
         <SignForm>
-          <SignLink to="/SignUp" style={SignUpStyle}>
+          <SignLink to="/SignIn" style={SignUpStyle}>
             Sign in
           </SignLink>
-          <SignLink to="/SignIn" style={SignInStyle}>
+          <SignLink to="/SignUp" style={SignInStyle}>
             Sign up &nbsp; &nbsp; &rarr;
           </SignLink>
         </SignForm>
