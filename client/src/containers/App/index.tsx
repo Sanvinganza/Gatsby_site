@@ -2,6 +2,8 @@ import React, { Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { GlobalStyle } from 'styles/global';
 import FullPageLoader from 'components/Loaders/FullPageLoader';
+import SingUp from 'containers/Auth/SingUp';
+import SingIn from 'containers/Auth/SingIn';
 
 const Todos = React.lazy(() => import('containers/Todos'));
 
@@ -11,6 +13,12 @@ const App: React.FC = () => {
       <Switch>
         <Route exact path="/">
           <Todos />
+        </Route>
+        <Route exact path="/singIn">
+          <SingIn />
+        </Route>
+        <Route exact path="/singUp">
+          <SingUp />
         </Route>
       </Switch>
       <GlobalStyle />
