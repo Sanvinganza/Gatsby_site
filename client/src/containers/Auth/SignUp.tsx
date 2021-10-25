@@ -1,6 +1,6 @@
 import React from 'react';
 // import styled from 'styled-components';
-// import useForm from 'react-hook-form';
+import useForm from 'react-hook-form';
 import {
   SignInForm,
   AuthFormName,
@@ -13,15 +13,27 @@ import {
   AuthFormSubmitBtnText,
 } from './styled';
 
+type FormValues = {
+  eMail: string;
+  name: string;
+  password: string;
+  confirmPassword: string;
+}; 
+
 const SignUp: React.FC = () => {
+  const { register, handleSubmit } = useForm<FormValues>();
+  const onSubmit = handleSubmit(data => {
+    console.log("submitted ", data);
+  }); 
   return (
+    
     <div>
-      <SignInForm>
+      <SignInForm onSubmit={onSubmit}>
         <AuthFormName>Sign Up</AuthFormName>
-        <AuthFormInput placeholder="E-Mail" />
-        <AuthFormInput placeholder="Name" />
-        <AuthFormInput placeholder="Password" />
-        <AuthFormInput placeholder="Confirm Password" />
+        <AuthFormInput name='eMail' ref={register} placeholder="E-Mail" />
+        <AuthFormInput name='name' ref={register} placeholder="Name" />
+        <AuthFormInput name='password' ref={register} placeholder="Password" />
+        <AuthFormInput name='confirmPassword' ref={register} placeholder="Confirm Password" />
         <SubmitBtnContainer>
           <AuthFormBtn>Sign In</AuthFormBtn>
           <AuthFormBtnSubmit type="submit">
