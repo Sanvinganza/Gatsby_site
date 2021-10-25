@@ -8,7 +8,6 @@ import {
   Title,
   SignLink,
   SignForm,
-  ResetPasswordStyle,
   SignUpStyle,
   SignInStyle,
 } from './styled';
@@ -17,16 +16,22 @@ interface IFormInput {
   firstName: string;
   lastName: string;
 }
-const SignIn: React.FC<any> = () => {
+const SignUp: React.FC<any> = () => {
   const { register } = useForm<IFormInput>();
 
   return (
     <>
       <Container>
-        <Title>Sign in</Title>
+        <Title>Sign up</Title>
         <input
           type="email"
           placeholder="E-mail"
+          ref={register({ required: true })}
+          style={InputStyle}
+        />
+        <input
+          type="text"
+          placeholder="Name"
           ref={register({ required: true })}
           style={InputStyle}
         />
@@ -36,15 +41,18 @@ const SignIn: React.FC<any> = () => {
           ref={register({ required: true })}
           style={InputStyle}
         />
-        <SignLink to="/ResetPassword" style={ResetPasswordStyle}>
-          Reset password
-        </SignLink>
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          ref={register({ required: true })}
+          style={InputStyle}
+        />
         <SignForm>
           <SignLink to="/SignUp" style={SignUpStyle}>
-            Sign up
+            Sign in
           </SignLink>
           <SignLink to="/SignIn" style={SignInStyle}>
-            Sign in &nbsp; &nbsp; &rarr;
+            Sign up &nbsp; &nbsp; &rarr;
           </SignLink>
         </SignForm>
       </Container>
@@ -54,4 +62,4 @@ const SignIn: React.FC<any> = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;
