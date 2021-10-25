@@ -72,3 +72,13 @@ export const SignInStyle = {
   display: 'flex',
   justifyContent: 'space-between',
 } as React.CSSProperties;
+export const LabelStyle = {
+  fontFamily: 'SF UI  Text',
+  fontSize: '16px',
+  fontStyle: 'normal',
+  fontWeight: 400,
+  lineHeight: '24px',
+  letterSpacing: '0em',
+  textAlign: 'left',
+  color: colors.grey5,
+} as React.CSSProperties;

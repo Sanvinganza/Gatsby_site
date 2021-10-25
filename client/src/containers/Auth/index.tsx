@@ -1,5 +1,4 @@
 import React from 'react';
-import { Background, Logo } from './styled';
 
 interface IAuthProps {
   name: string;
