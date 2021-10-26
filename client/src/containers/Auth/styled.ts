@@ -101,6 +101,9 @@ export const AuthFormBtnSubmit = styled.button`
   :hover {
     transform: scale(1.2);
   }
+  :active {
+    padding-top: 2px;
+  }
 `;
 export const AuthFormSubmitBtnContent: any = styled.div`
   display: flex;
