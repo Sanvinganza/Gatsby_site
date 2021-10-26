@@ -63,6 +63,7 @@ export const ResetPassword = styled.button`
   color: #ffffff;
   background-color: transparent;
   border: none;
+  cursor: pointer;
 `;
 
 export const SignUpInRowConteiner = styled.div`
@@ -95,6 +96,10 @@ color: #FFFFFF;
 margin-left: 253px;
 align-items: center;
 justify-content: center;
+cursor: pointer;
+:hover {
+  background: #00BFFF;
+ } 
 `;
 
 export const TextEmail = styled.p`

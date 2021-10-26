@@ -1,6 +1,9 @@
 import * as React from 'react';
 import useForm from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import {signUpValidationSchema} from './validations';
+import { fieldNames } from './enumerations';
+import ErrorMessage from 'components/ErrorMessage';
 import {
   OurForm,
   InputForm,
@@ -13,37 +16,37 @@ import {
   LogoImage,
 } from './styleAuth';
 
-type FormData = {
-  firstName: string;
-  lastName: string;
-};
-
 const SingUp: React.FC = () => {
-  const { register, handleSubmit } = useForm<FormData>();
+  const { register, handleSubmit, errors } = useForm({
+    validationSchema: signUpValidationSchema,
+  });
   const onSubmit = handleSubmit(data => console.log(data));
-  // firstName and lastName will have correct type
 
   return (
     <>
       <BackImage />
       <LogoImage />
-      <OurForm style={{ height: '520px' }} onSubmit={onSubmit}>
+      <OurForm onSubmit={onSubmit}>
         <TextSignIn>Sing up</TextSignIn>
-        <InputForm type={'email'} ref={register} name="E-mail" placeholder="E-mail" />
+        <InputForm type={'email'} ref={register} name="email" placeholder="E-mail" />
+        <ErrorMessage errors={errors} name={fieldNames.email} />
         <InputForm type={'text'} ref={register} name="Name" placeholder="Name" />
-        <InputForm type={'password'} ref={register} name="Password" placeholder="Password" />
+        <ErrorMessage errors={errors} name={fieldNames.Name} />
+        <InputForm type={'password'} ref={register} name="password" placeholder="Password" />
+        <ErrorMessage errors={errors} name={fieldNames.password} />
         <InputForm
           type={'password'}
           ref={register}
-          name="ConfirmPassword"
+          name="confirmPassword"
           placeholder="Confirm password"
         />
+        <ErrorMessage errors={errors} name={fieldNames.confirmPassword} />
         <SignUpInRowConteiner>
           <Link to={`/singIn`}>
             <ResetPassword style={{ margin: '0px', alignSelf: 'center' }}> Sing in</ResetPassword>
           </Link>
           <SignInButton>
-            Sing up <Vector1 />
+            Sing in <Vector1 />
           </SignInButton>
         </SignUpInRowConteiner>
       </OurForm>

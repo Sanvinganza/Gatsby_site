@@ -1,6 +1,10 @@
 import * as React from 'react';
 import useForm from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { fieldNames } from './enumerations';
+import { signInValidationSchema } from './validations';
+import ErrorMessage from 'components/ErrorMessage';
+
 import {
   OurForm,
   InputForm,
@@ -13,15 +17,11 @@ import {
   LogoImage,
 } from './styleAuth';
 
-type FormData = {
-  firstName: string;
-  lastName: string;
-};
-
-const SingIn: React.FC = () => {
-  const { register, handleSubmit } = useForm<FormData>();
+  const SingIn: React.FC = () => {
+    const { register, handleSubmit, errors } = useForm({
+      validationSchema: signInValidationSchema,
+    });
   const onSubmit = handleSubmit(data => console.log(data));
-  // firstName and lastName will have correct type
 
   return (
     <>
@@ -29,8 +29,10 @@ const SingIn: React.FC = () => {
       <LogoImage />
       <OurForm onSubmit={onSubmit}>
         <TextSignIn>Sing in</TextSignIn>
-        <InputForm type={'email'} ref={register} name="E-mail" placeholder="E-mail" />
-        <InputForm type={'password'} ref={register} name="Password" placeholder="Password" />
+        <InputForm type={'email'} ref={register({ required: true})} name="email" placeholder="E-mail" />
+        <ErrorMessage errors={errors} name={fieldNames.email} />
+        <InputForm type={'password'} ref={register({ required: true})} name="password" placeholder="Password" />
+        <ErrorMessage errors={errors} name={fieldNames.password} />
         <Link to={`/resetPas`} style={{alignSelf: "flex-end"}}>
         <ResetPassword>Reset password</ResetPassword>
           </Link>
@@ -38,7 +40,7 @@ const SingIn: React.FC = () => {
           <Link to={`/singUp`}>
             <ResetPassword style={{ margin: '0px', alignSelf: 'center' }}> Sing up</ResetPassword>
           </Link>
-          <SignInButton>
+          <SignInButton type = "submit">
             Sing in <Vector1 />
           </SignInButton>
         </SignUpInRowConteiner>
