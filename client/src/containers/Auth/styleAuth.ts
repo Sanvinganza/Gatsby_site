@@ -23,7 +23,6 @@ export const OurForm = styled.form`
   padding: 30px;
   display: flex;
   width: 500px;
-  height: 422px;
   left: 470px;
   top: 239px;
   background: #3a3a51;
@@ -31,6 +30,7 @@ export const OurForm = styled.form`
 
 export const InputForm = styled.input`
 position: relative;
+padding: 16px;
 display: flex;
 width: 440px;
 height: 56px;
@@ -42,7 +42,6 @@ border: none;
 export const TextSignIn = styled.p`
   position: relative;
   margin-bottom: 20px;
-  width: 103px;
   height: 36px;
   font-family: SF UI Text;
   font-style: normal;
@@ -55,7 +54,6 @@ export const TextSignIn = styled.p`
 export const ResetPassword = styled.button`
   position: relative;
   height: 24px;
-  align-self: flex-end;
   margin-top: 30px;
   font-family: SF UI Text;
   font-style: normal;
@@ -97,4 +95,19 @@ color: #FFFFFF;
 margin-left: 253px;
 align-items: center;
 justify-content: center;
+`;
+
+export const TextEmail = styled.p`
+position relative;
+display: flex;
+width: 334px;
+height: 24px;
+margin-top: 20px;
+margin-bottom: 0px;
+font-family: SF UI Text;
+font-style: normal;
+font-weight: normal;
+font-size: 16px;
+line-height: 24px;
+color: #A1A1B9;
 `;

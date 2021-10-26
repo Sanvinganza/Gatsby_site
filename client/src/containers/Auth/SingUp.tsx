@@ -43,7 +43,7 @@ const SingUp: React.FC = () => {
             <ResetPassword style={{ margin: '0px', alignSelf: 'center' }}> Sing in</ResetPassword>
           </Link>
           <SignInButton>
-            Sing in <Vector1 />
+            Sing up <Vector1 />
           </SignInButton>
         </SignUpInRowConteiner>
       </OurForm>

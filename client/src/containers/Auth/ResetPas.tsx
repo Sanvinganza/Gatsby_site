@@ -11,6 +11,7 @@ import {
   Vector1,
   BackImage,
   LogoImage,
+  TextEmail,
 } from './styleAuth';
 
 type FormData = {
@@ -18,7 +19,7 @@ type FormData = {
   lastName: string;
 };
 
-const SingIn: React.FC = () => {
+const ResetPas: React.FC = () => {
   const { register, handleSubmit } = useForm<FormData>();
   const onSubmit = handleSubmit(data => console.log(data));
   // firstName and lastName will have correct type
@@ -28,22 +29,19 @@ const SingIn: React.FC = () => {
       <BackImage />
       <LogoImage />
       <OurForm onSubmit={onSubmit}>
-        <TextSignIn>Sing in</TextSignIn>
+        <TextSignIn>Reset password</TextSignIn>
+        <TextEmail>Enter your E-mail address to reset password</TextEmail>
         <InputForm type={'email'} ref={register} name="E-mail" placeholder="E-mail" />
-        <InputForm type={'password'} ref={register} name="Password" placeholder="Password" />
-        <Link to={`/resetPas`} style={{alignSelf: "flex-end"}}>
-        <ResetPassword>Reset password</ResetPassword>
-          </Link>
         <SignUpInRowConteiner>
-          <Link to={`/singUp`}>
-            <ResetPassword style={{ margin: '0px', alignSelf: 'center' }}> Sing up</ResetPassword>
+        <Link to={`/singIn`}>
+            <ResetPassword style={{ margin: '0px', alignSelf: 'center' }}> Sing in</ResetPassword>
           </Link>
           <SignInButton>
-            Sing in <Vector1 />
+          Reset<Vector1 />
           </SignInButton>
         </SignUpInRowConteiner>
       </OurForm>
     </>
   );
 };
-export default SingIn;
+export default ResetPas;
