@@ -32,7 +32,7 @@ export const AuthFormContainer = styled.form`
 
 export const AuthInput = styled.input`
   color: #ffffff;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
   padding: 16px;
   border: 0px;
   width: 440px;

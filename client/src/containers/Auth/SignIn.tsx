@@ -1,6 +1,9 @@
 import React from 'react';
 import useForm from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { fieldNames } from './enumerations';
+import { signInValidationSchema } from './validation';
+import ErrorMessage from 'components/ErrorMessage';
 
 import {
   AuthWrapper,
@@ -14,22 +17,24 @@ import {
   AuthButtonArrow,
 } from './styled';
 
-type FormValues = {
-  eMail: string;
-  password: string;
-};
-
 const SignIn: React.FC = () => {
-  const { register, handleSubmit } = useForm<FormValues>();
-  const onSubmit = handleSubmit(() => {});
+  const { register, handleSubmit, errors } = useForm({
+    validationSchema: signInValidationSchema,
+  });
+
+  const onSubmit = handleSubmit((data: any) => {
+    alert(JSON.stringify(data));
+  });
 
   return (
     <AuthWrapper>
       <AuthLogo />
       <AuthFormContainer onSubmit={onSubmit}>
         <AuthFormTitle>Sign in</AuthFormTitle>
-        <AuthInput name="eMail" ref={register} placeholder="E-Mail" />
+        <AuthInput name="email" ref={register} placeholder="E-Mail" />
+        <ErrorMessage errors={errors} name={fieldNames.email} />
         <AuthInput name="password" ref={register} placeholder="Password" />
+        <ErrorMessage errors={errors} name={fieldNames.password} />
         <AuthTextStyle>Reset password</AuthTextStyle>
         <AuthSignUpSignIn>
           <Link to="/SignUp">

@@ -1,5 +1,8 @@
 import React from 'react';
 import useForm from 'react-hook-form';
+import { fieldNames } from './enumerations';
+import { signInValidationSchema } from './validation';
+import ErrorMessage from 'components/ErrorMessage';
 
 import {
   AuthWrapper,
@@ -14,12 +17,10 @@ import {
   AuthTextGray,
 } from './styled';
 
-type FormValues = {
-  eMail: string;
-};
-
 const ResetPassword: React.FC = () => {
-  const { register, handleSubmit } = useForm<FormValues>();
+  const { register, handleSubmit, errors } = useForm({
+    validationSchema: signInValidationSchema,
+  });
   const onSubmit = handleSubmit(() => {});
 
   return (
@@ -28,7 +29,8 @@ const ResetPassword: React.FC = () => {
       <AuthFormContainer onSubmit={onSubmit}>
         <AuthFormTitle>Reset password</AuthFormTitle>
         <AuthTextGray>Enter your E-mail address to reset password</AuthTextGray>
-        <AuthInput style={{ margin: 0 }} name="eMail" ref={register} placeholder="E-Mail" />
+        <AuthInput style={{ margin: 0 }} name="email" ref={register} placeholder="E-Mail" />
+        <ErrorMessage errors={errors} name={fieldNames.email} />
         <AuthSignUpSignIn>
           <AuthTextStyle>Sign up</AuthTextStyle>
           <AuthButton type="submit">

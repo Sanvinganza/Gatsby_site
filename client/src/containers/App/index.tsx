@@ -2,11 +2,11 @@ import React, { Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { GlobalStyle } from 'styles/global';
 import FullPageLoader from 'components/Loaders/FullPageLoader';
-import SignIn from '../Auth/SignIn';
-import SignUp from '../Auth/SignUp';
-import ResetPassword from '../Auth/ResetPassword';
 
 const Todos = React.lazy(() => import('containers/Todos'));
+const SignIn = React.lazy(() => import('containers/Auth/SignIn'));
+const SignUp = React.lazy(() => import('containers/Auth/SignUp'));
+const ResetPassword = React.lazy(() => import('containers/Auth/ResetPassword'));
 
 const App: React.FC = () => {
   return (
@@ -18,7 +18,6 @@ const App: React.FC = () => {
         <Route exact path="/">
           <SignIn />
         </Route>
-
         <Route exact path="/SignUp">
           <SignUp />
         </Route>
