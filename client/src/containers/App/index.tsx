@@ -7,6 +7,7 @@ const Todos = React.lazy(() => import('containers/Todos'));
 const SignIn = React.lazy(() => import('containers/Auth/SignIn'));
 const SignUp = React.lazy(() => import('containers/Auth/SignUp'));
 const ResetPassword = React.lazy(() => import('containers/Auth/ResetPassword'));
+const MainPage = React.lazy(() => import('containers/MainPage/MainPage'));
 
 const App: React.FC = () => {
   return (
@@ -23,6 +24,9 @@ const App: React.FC = () => {
         </Route>
         <Route exact path="/ResetPassword">
           <ResetPassword />
+        </Route>
+        <Route exact path="/MainPage">
+          <MainPage />
         </Route>
       </Switch>
       <GlobalStyle />
