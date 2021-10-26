@@ -8,7 +8,6 @@ import {
   Title,
   SignLink,
   SignForm,
-  SignUpStyle,
   SignInStyle,
   LabelStyle,
 } from './styled';
@@ -37,7 +36,7 @@ const ResetPassword: React.FC<any> = () => {
           style={InputStyle}
         />
         <SignForm>
-          <SignLink to="/SignUp" style={SignUpStyle}>
+          <SignLink to="/SignUp">
             Sign up
           </SignLink>
           <SignLink to="/SignIn" style={SignInStyle}>

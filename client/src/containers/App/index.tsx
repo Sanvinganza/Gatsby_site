@@ -5,6 +5,7 @@ import FullPageLoader from 'components/Loaders/FullPageLoader';
 import Auth from 'containers/Auth';
 import SignUp from 'containers/Auth/SignUp';
 import ResetPassword from 'containers/Auth/ResetPassword';
+import { Main } from 'containers/Main';
 
 const Todos = React.lazy(() => import('containers/Todos'));
 const SignIn = React.lazy(() => import('containers/Auth/SignIn'));
@@ -13,9 +14,9 @@ const App: React.FC = () => {
   return (
     <Suspense fallback={FullPageLoader}>
       <Switch>
-        <Route exact path="/">
+        {/* <Route exact path="/">
           <Todos />
-        </Route>
+        </Route> */}
         <Route exact path="/SignIn">
           <SignIn name="Sign in" />
         </Route>
@@ -27,6 +28,9 @@ const App: React.FC = () => {
         </Route>
         <Route exact path="/ResetPassword">
           <ResetPassword name="Reset Password" />
+        </Route>
+        <Route exact path="/">
+          <Main name="Main" />
         </Route>
       </Switch>
       <GlobalStyle />

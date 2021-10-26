@@ -63,7 +63,6 @@ export const SignForm = styled.div`
   justify-content: space-between;
   margin-top: 60px;
 `;
-export const SignUpStyle = {} as React.CSSProperties;
 export const SignInStyle = {
   boxSizing: 'border-box',
   width: '125px',

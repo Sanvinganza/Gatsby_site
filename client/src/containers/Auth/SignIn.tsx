@@ -9,7 +9,6 @@ import {
   SignLink,
   SignForm,
   ResetPasswordStyle,
-  SignUpStyle,
   SignInStyle,
 } from './styled';
 
@@ -26,6 +25,7 @@ const SignIn: React.FC<any> = () => {
         <Title>Sign in</Title>
         <input
           type="email"
+          name="email"
           placeholder="E-mail"
           ref={register({ required: true })}
           style={InputStyle}
@@ -40,7 +40,7 @@ const SignIn: React.FC<any> = () => {
           Reset password
         </SignLink>
         <SignForm>
-          <SignLink to="/SignUp" style={SignUpStyle}>
+          <SignLink to="/SignUp">
             Sign up
           </SignLink>
           <SignLink to="/SignIn" style={SignInStyle}>
