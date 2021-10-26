@@ -1,5 +1,8 @@
 import React from 'react';
 import useForm from 'react-hook-form';
+import { fieldNames } from './enumerations';
+import { signUpValidationSchema } from './validations';
+import ErrorMessage from 'components/ErrorMessage';
 import {
   SignInForm,
   AuthFormName,
@@ -22,7 +25,10 @@ type FormValues = {
 };
 
 const SignUp: React.FC = () => {
-  const { register, handleSubmit } = useForm<FormValues>();
+  const { register, handleSubmit, errors } = useForm({
+    validationSchema: signUpValidationSchema,
+  });
+
   const onSubmit = handleSubmit(data => {
     console.log('submitted ', data);
   });
@@ -31,10 +37,14 @@ const SignUp: React.FC = () => {
       <AuthLogo />
       <SignInForm onSubmit={onSubmit}>
         <AuthFormName>Sign Up</AuthFormName>
-        <AuthFormInput name="eMail" ref={register} placeholder="E-Mail" />
-        <AuthFormInput name="name" ref={register} placeholder="Name" />
+        <AuthFormInput name="email" ref={register} placeholder="E-Mail" />
+        <ErrorMessage errors={errors} name={fieldNames.email} />
+        <AuthFormInput name="Name" ref={register} placeholder="Name" />
+        <ErrorMessage errors={errors} name={fieldNames.Name} />
         <AuthFormInput name="password" ref={register} placeholder="Password" />
+        <ErrorMessage errors={errors} name={fieldNames.password} />
         <AuthFormInput name="confirmPassword" ref={register} placeholder="Confirm Password" />
+        <ErrorMessage errors={errors} name={fieldNames.confirmPassword} />
         <SubmitBtnContainer>
           <AuthFormLink to="/SignIn">Sign In</AuthFormLink>
           <AuthFormBtnSubmit type="submit">
