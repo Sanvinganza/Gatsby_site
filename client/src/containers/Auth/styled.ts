@@ -1,6 +1,6 @@
 import { from } from 'apollo-link';
 import styled from 'styled-components';
-// import { string } from 'yup';
+import { Link } from 'react-router-dom';
 import AuthBackgroundImg from '../../assets/images/auth-background.png';
 import Arrow from '../../assets/images/arrow.svg';
 import Logo from '../../assets/images/Logo.png';
@@ -33,7 +33,6 @@ export const AuthForm: any = styled.form`
 
 export const AuthFormName = styled.h3`
   margin-bottom: 20px;
-  font-family: SF UI Text;
   font-style: normal;
   font-weight: bold;
   font-size: 30px;
@@ -46,8 +45,8 @@ export const AuthFormInput = styled.input`
   background: #42425c;
   padding: 16px;
   margin-top: 20px;
+  color: #fff;
   ::placeholder {
-    font-family: SF UI Text;
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
@@ -68,9 +67,30 @@ export const AuthFormSubmitBtnSvg = styled.p`
 export const AuthFormSubmitBtnText = styled.p`
   margin: 0;
 `;
-export const AuthFormBtn: any = styled.button`
-  border: none;
-  font-family: SF UI Text;
+
+export const AuthFormLink: any = styled(Link)`
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  color: #ffffff;
+  background-color: transparent;
+  cursor: pointer;
+  :hover {
+    transform: scale(1.2);
+    color: #fff;
+  }
+`;
+export const AuthFormLinkRight = styled(AuthFormLink)`
+  margin: 30px 0 60px;
+  width: 120px;
+  height: 24px;
+  align-self: end;
+`;
+export const AuthFormBtnSubmit = styled.button`
+  width: 124px;
+  height: 40px;
+  border: 1px solid #a1a1b9;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -81,17 +101,6 @@ export const AuthFormBtn: any = styled.button`
   :hover {
     transform: scale(1.2);
   }
-`;
-export const AuthFormBtnRight = styled(AuthFormBtn)`
-  margin: 30px 0 60px;
-  width: 120px;
-  height: 24px;
-  align-self: end;
-`;
-export const AuthFormBtnSubmit = styled(AuthFormBtn)`
-  width: 124px;
-  height: 40px;
-  border: 1px solid #a1a1b9;
 `;
 export const AuthFormSubmitBtnContent: any = styled.div`
   display: flex;
