@@ -17,13 +17,6 @@ import {
   AuthFormLink,
 } from './styled';
 
-type FormValues = {
-  eMail: string;
-  name: string;
-  password: string;
-  confirmPassword: string;
-};
-
 const SignUp: React.FC = () => {
   const { register, handleSubmit, errors } = useForm({
     validationSchema: signUpValidationSchema,
