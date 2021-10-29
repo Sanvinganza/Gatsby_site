@@ -13,7 +13,7 @@ import {
   Input,
   Button,
 } from './styled';
-import { fieldNames, signInSchema} from './validations';
+import { fieldNames, signInSchema } from './validations';
 
 interface IFormInput {
   firstName: string;
@@ -31,13 +31,13 @@ const SignIn: React.FC<any> = () => {
     <>
       <Container onSubmit={onSubmit}>
         <Title>Sign in</Title>
-        
-        <Input type="email" name={fieldNames.email} placeholder="E-mail" ref={register}/>
+
+        <Input type="email" name={fieldNames.email} placeholder="E-mail" ref={register} />
         <ErrorMessage errors={errors} name={fieldNames.email} />
-        
+
         <Input type="password" placeholder="Password" name={fieldNames.password} ref={register} />
         <ErrorMessage errors={errors} name={fieldNames.password} />
-        
+
         <SignLink to="/ResetPassword" style={ResetPasswordStyle}>
           Reset password
         </SignLink>
@@ -48,7 +48,6 @@ const SignIn: React.FC<any> = () => {
             Sign ip &nbsp; &nbsp; &rarr;
           </Button>
         </SignForm>
-      
       </Container>
       <Background />
       <Logo />

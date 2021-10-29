@@ -28,16 +28,21 @@ const SignUp: React.FC<any> = () => {
       <Container onSubmit={onSubmit}>
         <Title>Sign up</Title>
 
-        <Input type="email" name={fieldNames.email} placeholder="E-mail" ref={register}/>
+        <Input type="email" name={fieldNames.email} placeholder="E-mail" ref={register} />
         <ErrorMessage errors={errors} name={fieldNames.email} />
-        
-        <Input type="text" name={fieldNames.name} placeholder="Name" ref={register}/>
+
+        <Input type="text" name={fieldNames.name} placeholder="Name" ref={register} />
         <ErrorMessage errors={errors} name={fieldNames.name} />
-        
+
         <Input type="password" placeholder="Password" name={fieldNames.password} ref={register} />
         <ErrorMessage errors={errors} name={fieldNames.password} />
-        
-        <Input type="password" placeholder="Confirm Password" name={fieldNames.confirmPassword} ref={register} />
+
+        <Input
+          type="password"
+          placeholder="Confirm Password"
+          name={fieldNames.confirmPassword}
+          ref={register}
+        />
         <ErrorMessage errors={errors} name={fieldNames.confirmPassword} />
 
         <SignForm>
@@ -46,7 +51,6 @@ const SignUp: React.FC<any> = () => {
             Sign up &nbsp; &nbsp; &rarr;
           </Button>
         </SignForm>
-        
       </Container>
       <Background />
       <Logo />
