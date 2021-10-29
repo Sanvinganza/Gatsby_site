@@ -13,6 +13,7 @@ const Message = styled.p`
 const ErrorMessage = ({ errors, name }: IErrorMessage) => {
   // Note: if you are using FormContext, then you can use Errors without props eg:
   // const { errors } = useFormContext();
+
   if (!errors[name]) return null;
 
   console.log(errors);

@@ -1,47 +1,44 @@
+import ErrorMessage from 'components/ErrorMessage';
 import React from 'react';
 import useForm from 'react-hook-form';
 import {
   Background,
   Container,
-  InputStyle,
   Logo,
   Title,
   SignLink,
   SignForm,
   SignInStyle,
   LabelStyle,
+  Input,
+  Button,
 } from './styled';
+import { fieldNames, resetPasswordSchema } from './validations';
 
-interface IFormInput {
-  firstName: string;
-  lastName: string;
-}
 const ResetPassword: React.FC<any> = () => {
-  const { register } = useForm<IFormInput>();
+  const { register, errors, handleSubmit } = useForm({
+    validationSchema: resetPasswordSchema
+  });
 
+  const onSubmit = handleSubmit(data => {
+    console.log('submitted ', data);
+  });
+  
   return (
     <>
-      <Container>
+      <Container onSubmit={onSubmit}>
         <Title>Reset password</Title>
-        <label 
-            htmlFor="email"
-            style={LabelStyle}>
-            Enter your E-mail address to reset password
+        <label htmlFor="email" style={LabelStyle}>
+          Enter your E-mail address to reset password
         </label>
-        <input
-          type="email"
-          name="email"
-          placeholder="E-mail"
-          ref={register({ required: true })}
-          style={InputStyle}
-        />
+        <Input type="email" name={fieldNames.email} placeholder="E-mail" ref={register}/>
+        <ErrorMessage errors={errors} name={fieldNames.email} />
+        
         <SignForm>
-          <SignLink to="/SignUp">
-            Sign up
-          </SignLink>
-          <SignLink to="/SignIn" style={SignInStyle}>
-            Sign in &nbsp; &nbsp; &rarr;
-          </SignLink>
+          <SignLink to="/SignUp">Sign up</SignLink>
+          <Button type="submit" style={SignInStyle}>
+            Reset &nbsp; &nbsp; &rarr;
+          </Button>
         </SignForm>
       </Container>
       <Background />

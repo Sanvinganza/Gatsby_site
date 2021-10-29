@@ -11,11 +11,13 @@ export const Logo = styled(logo)`
   top: 36px;
   left: 35px;
 `;
+
 export const Background = styled(bg)`
   position: fixed;
   z-index: -1;
 `;
-export const Container = styled.div`
+
+export const Container = styled.form`
   position: absolute;
   width: 500px;
   min-height: 300px;
@@ -26,6 +28,7 @@ export const Container = styled.div`
   flex-direction: column;
   padding: 30px;
 `;
+
 export const Title = styled.div`
   font-family: SF UI Text;
   font-size: 30px;
@@ -37,13 +40,15 @@ export const Title = styled.div`
   color: #ffffff;
   padding-bottom: 30px;
 `;
-export const InputStyle = {
-  padding: '16px',
-  margin: '10px 0',
-  backgroundColor: colors.grey3,
-  color: colors.grey5,
-  border: 0,
-} as React.CSSProperties;
+
+export const Input = styled.input`
+  padding: 16px;
+  margin: 10px 0;
+  background-color: ${colors.grey3};
+  color: ${colors.grey5};
+  border: 0;
+`;
+
 export const SignLink = styled(Link)`
   font-family: SF UI Text;
   font-size: 16px;
@@ -54,15 +59,18 @@ export const SignLink = styled(Link)`
   text-align: left;
   color: #ffffff;
 `;
+
 export const ResetPasswordStyle = {
   alignSelf: 'flex-end',
 } as React.CSSProperties;
+
 export const SignForm = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin-top: 60px;
 `;
+
 export const SignInStyle = {
   boxSizing: 'border-box',
   width: '125px',
@@ -71,6 +79,7 @@ export const SignInStyle = {
   display: 'flex',
   justifyContent: 'space-between',
 } as React.CSSProperties;
+
 export const LabelStyle = {
   fontFamily: 'SF UI  Text',
   fontSize: '16px',
@@ -81,3 +90,9 @@ export const LabelStyle = {
   textAlign: 'left',
   color: colors.grey5,
 } as React.CSSProperties;
+export const Button = styled.button`
+  background-color: ${colors.grey3};
+  color: #fff;
+  font-family: SF UI Text;
+  font-size: 16px;
+`;
