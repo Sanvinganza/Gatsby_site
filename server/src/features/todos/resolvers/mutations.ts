@@ -1,4 +1,9 @@
-import { IResolverMap } from "interfaces/IResolvers";
+// import { IResolvers } from "interfaces/IResolvers";
+type ResolverFn = (parent: any, args: any, ctx: any, info: any) => Promise<any>;
+
+interface IResolverMap {
+  [field: string]: ResolverFn;
+}
 
 export default <IResolverMap>{
   createTodos: async (parent, args, { models }) => {

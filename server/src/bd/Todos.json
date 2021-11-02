@@ -1,0 +1,27 @@
+[
+    {
+        "id": 0,
+        "task": "drop server",
+        "checked": false
+    },
+    {
+        "id": 1,
+        "task": "drop client",
+        "checked": true
+    },
+    {
+        "id": 2,
+        "task": "make dinner",
+        "checked": false
+    },
+    {
+        "id": 3,
+        "task": "check mail",
+        "checked": true
+    },
+    {
+        "id": 4,
+        "task": "just chill",
+        "checked": false
+    }
+]
