@@ -1,14 +1,8 @@
-// import { IResolvers } from "interfaces/IResolvers";
-type ResolverFn = (parent: any, args: any, ctx: any, info: any) => Promise<any>;
-
-interface IResolverMap {
-  [field: string]: ResolverFn;
-}
+import { IResolverMap, ResolverFn }from '../../../interfaces/IResolvers';
 
 export default <IResolverMap>{
   createTodos: async (parent, args, { models }) => {
     const { task, checked } = args;
-
     try {
       await models
         .Todos({
@@ -18,7 +12,6 @@ export default <IResolverMap>{
         .save();
 
       const response = await models.Todos.find();
-
       return response;
     } catch (error) {
       throw new Error(error.message);
@@ -29,9 +22,11 @@ export default <IResolverMap>{
 
     try {
       const todo = await models.Todos.findById(id);
-      await todo.set({ task: task, checked: checked });
+      console.log(todo)
+      await todo.set({ checked: checked });
       await todo.save();
       const todos = await models.Todos.find();
+
       return todos;
     } catch (error) {
       throw new Error(error.message);
@@ -43,6 +38,7 @@ export default <IResolverMap>{
     try {
       await models.Todos.deleteOne({ _id: id });
       const todos = await models.Todos.find();
+
       return todos;
     } catch (error) {
       throw new Error(error.message);

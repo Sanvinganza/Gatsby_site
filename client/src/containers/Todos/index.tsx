@@ -5,6 +5,8 @@ import { format } from 'date-fns';
 import CreateTodos from './CreateTodos';
 import ListsTodos from './ListsTodos';
 import Divider from 'components/Divider/Divider';
+import { useQuery } from 'react-apollo';
+import { GET_TODOS } from './gql';
 
 const TodosContainer = styled.div`
   color: #fafafa;
@@ -37,12 +39,23 @@ const ActiveNumber = styled.div`
 `;
 
 const Todos: React.FC = () => {
+  const { loading, error, data } = useQuery(GET_TODOS,{
+    notifyOnNetworkStatusChange: true,
+    fetchPolicy: 'cache-and-network',
+  });
+
+  let taskActiveCount;
+  if(data) 
+    taskActiveCount = data
+      .getTodos.filter((el: any) => !el.checked)
+      .length;
+
   return (
     <TodosContainer>
       <Header>
         <div>
           <DateContent>{format(new Date(), 'iiii, LLL d')}</DateContent>
-          <ActiveNumber>3 active tasks</ActiveNumber>
+          <ActiveNumber>{taskActiveCount} active tasks</ActiveNumber>
         </div>
       </Header>
       <CreateTodos />

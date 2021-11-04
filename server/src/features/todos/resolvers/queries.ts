@@ -11,9 +11,9 @@ interface IResolverMap {
 export default <IResolverMap>{
   getTodos: async (parent, args, { models }, info) => {
     try {
-      // const todos = await models.Todos.find();
-      const todos = Todos;
-      console.log('GetTodos done', todos)
+      const todos = await models.Todos.find();
+      // const todos = Todos;
+      // console.log('GetTodos done', todos)
       return todos;
     } catch (error) {}
   },

@@ -90,6 +90,7 @@ export const LabelStyle = {
   textAlign: 'left',
   color: colors.grey5,
 } as React.CSSProperties;
+
 export const Button = styled.button`
   background-color: ${colors.grey3};
   color: #fff;
