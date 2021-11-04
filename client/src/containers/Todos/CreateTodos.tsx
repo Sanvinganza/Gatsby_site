@@ -3,7 +3,7 @@
  * https://codesandbox.io/s/72j69vnk1x
  */
 
-import React,{ useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import useForm from 'react-hook-form';
 import { Input, Button } from 'antd';
@@ -51,13 +51,18 @@ const CreateTodos: React.FC<{}> = () => {
         <Input
           data-testid="task-input"
           onChange={e => setValue('task', e.target.value)}
-          
           name={fieldNames.task}
           placeholder="Add more task...."
         />
         <ErrorMessage errors={errors} name={fieldNames.task} />
       </div>
-      <Button onClick={() => console.log()} data-testid="create-button" type="primary" htmlType="submit" loading={loading}>
+      <Button
+        onClick={() => console.log()}
+        data-testid="create-button"
+        type="primary"
+        htmlType="submit"
+        loading={loading}
+      >
         Add Task
       </Button>
     </CreateTodosForm>

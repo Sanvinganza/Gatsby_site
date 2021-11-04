@@ -39,16 +39,13 @@ const ActiveNumber = styled.div`
 `;
 
 const Todos: React.FC = () => {
-  const { loading, error, data } = useQuery(GET_TODOS,{
+  const { loading, error, data } = useQuery(GET_TODOS, {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: 'cache-and-network',
   });
 
   let taskActiveCount;
-  if(data) 
-    taskActiveCount = data
-      .getTodos.filter((el: any) => !el.checked)
-      .length;
+  if (data) taskActiveCount = data.getTodos.filter((el: any) => !el.checked).length;
 
   return (
     <TodosContainer>
