@@ -3,7 +3,7 @@
  * https://codesandbox.io/s/72j69vnk1x
  */
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import useForm from 'react-hook-form';
 import { Input, Button } from 'antd';
@@ -12,6 +12,7 @@ import ErrorMessage from 'components/ErrorMessage';
 import { CREATE_TODO, GET_TODOS } from './gql';
 import { fieldNames } from './enumerations';
 import { createTodoValidationSchema } from './validations';
+import { Ref } from 'react-hook-form/dist/types';
 
 const CreateTodosForm = styled.form`
   display: flex;
@@ -24,10 +25,9 @@ const CreateTodosForm = styled.form`
 `;
 
 const CreateTodos: React.FC<{}> = () => {
-  const { register, handleSubmit, setValue, errors } = useForm({
+  const { register, handleSubmit, setValue, errors, reset } = useForm({
     validationSchema: createTodoValidationSchema,
   });
-  const [inputValue, setInputValue]: React.ComponentState = useState('');
   const [createTodos, { loading }] = useMutation(CREATE_TODO, {
     refetchQueries: [{ query: GET_TODOS }],
   });
@@ -43,21 +43,28 @@ const CreateTodos: React.FC<{}> = () => {
         checked: false,
       },
     });
+    
   };
+
+  const inputRef: any = useRef('');
 
   return (
     <CreateTodosForm onSubmit={handleSubmit(onFormSubmit)}>
       <div>
         <Input
+          type="text"
           data-testid="task-input"
-          onChange={e => setValue('task', e.target.value)}
+          onChange={e => {
+            setValue('task', e.target.value, true)
+          }}
           name={fieldNames.task}
           placeholder="Add more task...."
+          ref={inputRef}
+          allowClear={true}
         />
         <ErrorMessage errors={errors} name={fieldNames.task} />
       </div>
       <Button
-        onClick={() => console.log()}
         data-testid="create-button"
         type="primary"
         htmlType="submit"
