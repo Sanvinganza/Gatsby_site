@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { format } from 'date-fns';
-
 import CreateTodos from './CreateTodos';
 import ListsTodos from './ListsTodos';
 import Divider from 'components/Divider/Divider';
+import ActiveTaskNumber from './ActiveTaskNumber';
 
 const TodosContainer = styled.div`
   color: #fafafa;
@@ -31,18 +31,13 @@ const DateContent = styled.div`
   font-size: 18px;
 `;
 
-const ActiveNumber = styled.div`
-  font-size: 14px;
-  color: ${p => p.theme.colors.primary};
-`;
-
 const Todos: React.FC = () => {
   return (
     <TodosContainer>
       <Header>
         <div>
           <DateContent>{format(new Date(), 'iiii, LLL d')}</DateContent>
-          <ActiveNumber>3 active tasks</ActiveNumber>
+          <ActiveTaskNumber />
         </div>
       </Header>
       <CreateTodos />
