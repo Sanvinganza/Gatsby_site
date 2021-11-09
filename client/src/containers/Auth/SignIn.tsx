@@ -40,12 +40,12 @@ const SignIn: React.FC = () => {
           <Link to="/SignUp">
             <AuthTextStyle>Sign up</AuthTextStyle>
           </Link>
-          <Link to="/Todos">
-            <AuthButton type="submit">
-              <AuthTextStyle>Sign in</AuthTextStyle>
-              <AuthButtonArrow />
-            </AuthButton>
-          </Link>
+          {/* <Link to="/Todos"> */}
+          <AuthButton type="submit">
+            <AuthTextStyle>Sign in</AuthTextStyle>
+            <AuthButtonArrow />
+          </AuthButton>
+          {/* </Link> */}
         </AuthSignUpSignIn>
       </AuthFormContainer>
     </AuthWrapper>
