@@ -12,13 +12,13 @@ const App: React.FC = () => {
   return (
     <Suspense fallback={FullPageLoader}>
       <Switch>
-        <Route exact path="/">
+        <Route exact path="/Todos">
           <Todos />
         </Route>
         <Route exact path="/singIn">
           <SingIn />
         </Route>
-        <Route exact path="/singUp">
+        <Route exact path="/">
           <SingUp />
         </Route>
         <Route exact path="/resetPas">

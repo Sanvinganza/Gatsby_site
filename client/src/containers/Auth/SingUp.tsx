@@ -15,12 +15,28 @@ import {
   BackImage,
   LogoImage,
 } from './styleAuth';
+import { CREATE_USERS, GET_USERS } from './gql';
+import { useMutation } from 'react-apollo';
 
 const SingUp: React.FC = () => {
   const { register, handleSubmit, errors } = useForm({
     validationSchema: signUpValidationSchema,
   });
-  const onSubmit = handleSubmit(data => console.log(data));
+  const [createUsers, { loading }] = useMutation(CREATE_USERS, {
+    refetchQueries: [{ query: GET_USERS }],
+  });
+
+  React.useEffect(() => {
+    register({ name: fieldNames.Name });
+  });
+
+  const onSubmit = handleSubmit(data =>{ createUsers({
+    variables: {
+      username: data.Name,
+      email: data.email,
+      password: data.password,
+    },
+  })});
 
   return (
     <>
@@ -46,7 +62,7 @@ const SingUp: React.FC = () => {
             <ResetPassword style={{ margin: '0px', alignSelf: 'center' }}> Sing in</ResetPassword>
           </Link>
           <SignInButton>
-            Sing in <Vector1 />
+            Sing up <Vector1 />
           </SignInButton>
         </SignUpInRowConteiner>
       </OurForm>
