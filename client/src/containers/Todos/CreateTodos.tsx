@@ -12,7 +12,6 @@ import ErrorMessage from 'components/ErrorMessage';
 import { CREATE_TODO, GET_TODOS } from './gql';
 import { fieldNames } from './enumerations';
 import { createTodoValidationSchema } from './validations';
-import { Ref } from 'react-hook-form/dist/types';
 
 const CreateTodosForm = styled.form`
   display: flex;
@@ -25,7 +24,7 @@ const CreateTodosForm = styled.form`
 `;
 
 const CreateTodos: React.FC<{}> = () => {
-  const { register, handleSubmit, setValue, errors, reset } = useForm({
+  const { register, handleSubmit, setValue, errors } = useForm({
     validationSchema: createTodoValidationSchema,
   });
   const [createTodos, { loading }] = useMutation(CREATE_TODO, {
@@ -46,8 +45,6 @@ const CreateTodos: React.FC<{}> = () => {
     
   };
 
-  const inputRef: any = useRef('');
-
   return (
     <CreateTodosForm onSubmit={handleSubmit(onFormSubmit)}>
       <div>
@@ -59,7 +56,6 @@ const CreateTodos: React.FC<{}> = () => {
           }}
           name={fieldNames.task}
           placeholder="Add more task...."
-          ref={inputRef}
           allowClear={true}
         />
         <ErrorMessage errors={errors} name={fieldNames.task} />

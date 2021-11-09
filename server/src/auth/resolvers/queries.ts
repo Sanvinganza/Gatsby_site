@@ -6,7 +6,7 @@ interface IResolverMap {
 export default <IResolverMap>{
   getUsers: async (parent, args, { models }, info) => {
     try {
-      const users = await models.Todos.find();
+      const users = await models.Users.find();
       return users;
     } catch (error) {
         throw new Error(error.message);

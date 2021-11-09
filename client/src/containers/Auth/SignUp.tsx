@@ -13,28 +13,52 @@ import {
 } from './styled';
 import { fieldNames, SignUpSchema } from './validations';
 import ErrorMessage from 'components/ErrorMessage';
+import { CREATE_USER, GET_USERS } from './gql';
+import { useMutation } from '@apollo/react-hooks';
 
 const SignUp: React.FC<any> = () => {
-  const { register, errors, handleSubmit } = useForm({
+  const { register, errors, handleSubmit, setValue } = useForm({
     validationSchema: SignUpSchema,
   });
 
-  const onSubmit = handleSubmit(data => {
-    console.log('submitted ', data);
+  const [createUsers] = useMutation(CREATE_USER, {
+    refetchQueries: [{ query: GET_USERS }],
   });
+
+  React.useEffect(() => {
+    register({ name: fieldNames.name });
+  });
+
+  const onSubmit = (data: any) => {
+    createUsers({
+      variables: {
+        email: data.email,
+        password: data.password,
+        name: data.name
+      },
+    });
+    console.log('submitted ', data);
+  };
 
   return (
     <>
-      <Container onSubmit={onSubmit}>
+      <Container onSubmit={handleSubmit(onSubmit)}>
         <Title>Sign up</Title>
 
-        <Input type="email" name={fieldNames.email} placeholder="E-mail" ref={register} />
+        <Input type="email" name={fieldNames.email} placeholder="E-mail" ref={register}  onChange={e => {
+            setValue('email', e.target.value)
+          }}/>
         <ErrorMessage errors={errors} name={fieldNames.email} />
 
-        <Input type="text" name={fieldNames.name} placeholder="Name" ref={register} />
+        <Input type="text" name={fieldNames.name} placeholder="Name" ref={register} onChange={e => {
+            setValue('name', e.target.value)
+          }}/>
         <ErrorMessage errors={errors} name={fieldNames.name} />
 
-        <Input type="password" placeholder="Password" name={fieldNames.password} ref={register} />
+        <Input type="password" placeholder="Password" name={fieldNames.password} ref={register} onChange={e => {
+            setValue('password', e.target.value)
+            console.log(e.target.value)
+          }}/>
         <ErrorMessage errors={errors} name={fieldNames.password} />
 
         <Input
@@ -47,7 +71,10 @@ const SignUp: React.FC<any> = () => {
 
         <SignForm>
           <SignLink to="/SignIn">Sign in</SignLink>
-          <Button type="submit" style={SignInStyle}>
+          <Button
+            type="submit" 
+            style={SignInStyle}
+            >
             Sign up &nbsp; &nbsp; &rarr;
           </Button>
         </SignForm>

@@ -8,6 +8,11 @@ body {
     font-family: 'Open Sans', sans-serif;
     margin: 0;
   }
+
+input {
+    outline: none;
+  }
+
 `;
 
 export { GlobalStyle };

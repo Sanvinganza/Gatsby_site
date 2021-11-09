@@ -4,7 +4,7 @@ interface IResolverMap {
   }
   
 export default <IResolverMap>{
-  createUsers: async (parent, args, { models }) => {
+  createUser: async (parent, args, { models }) => {
     const { email, password, name } = args;
     try {
       await models
@@ -15,7 +15,7 @@ export default <IResolverMap>{
         })
         .save();
 
-      const response = await models.Todos.find();
+      const response = await models.Users.find();
       return response;
     } catch (error) {
       throw new Error(error.message);
