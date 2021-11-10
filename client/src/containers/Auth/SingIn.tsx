@@ -2,7 +2,7 @@ import * as React from 'react';
 import useForm from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { fieldNames } from './enumerations';
-import { signInValidationSchema } from './validations';
+import { signInValidationSchema, signUpValidationSchema } from './validations';
 import ErrorMessage from 'components/ErrorMessage';
 
 import {
@@ -17,30 +17,58 @@ import {
   LogoImage,
 } from './styleAuth';
 
-  const SingIn: React.FC = () => {
-    const { register, handleSubmit, errors } = useForm({
-      validationSchema: signInValidationSchema,
-    });
-  const onSubmit = handleSubmit(data => console.log(data));
+import { CREATE_USERS, GET_USERS } from './gql';
+import { useMutation } from 'react-apollo';
 
+const SingIn: React.FC = () => {
+  const { register, handleSubmit, errors } = useForm({
+    validationSchema: signInValidationSchema,
+  });
+  const [createUsers, { loading }] = useMutation(CREATE_USERS, {
+    refetchQueries: [{ query: GET_USERS }],
+  });
+
+  React.useEffect(() => {
+    register({ name: fieldNames.Name });
+  });
+
+  const onSubmit = handleSubmit(data => {
+    createUsers({
+      variables: {
+        username: data.Name,
+        email: data.email,
+        password: data.password,
+      },
+    });
+  });
   return (
     <>
       <BackImage />
       <LogoImage />
       <OurForm onSubmit={onSubmit}>
         <TextSignIn>Sing in</TextSignIn>
-        <InputForm type={'email'} ref={register({ required: true})} name="email" placeholder="E-mail" />
+        <InputForm
+          type={'email'}
+          ref={register({ required: true })}
+          name="email"
+          placeholder="E-mail"
+        />
         <ErrorMessage errors={errors} name={fieldNames.email} />
-        <InputForm type={'password'} ref={register({ required: true})} name="password" placeholder="Password" />
+        <InputForm
+          type={'password'}
+          ref={register({ required: true })}
+          name="password"
+          placeholder="Password"
+        />
         <ErrorMessage errors={errors} name={fieldNames.password} />
-        <Link to={`/resetPas`} style={{alignSelf: "flex-end"}}>
-        <ResetPassword>Reset password</ResetPassword>
-          </Link>
+        <Link to={`/resetPas`} style={{ alignSelf: 'flex-end' }}>
+          <ResetPassword>Reset password</ResetPassword>
+        </Link>
         <SignUpInRowConteiner>
           <Link to={`/singUp`}>
             <ResetPassword style={{ margin: '0px', alignSelf: 'center' }}> Sing up</ResetPassword>
           </Link>
-          <SignInButton type = "submit">
+          <SignInButton type="submit">
             Sing in <Vector1 />
           </SignInButton>
         </SignUpInRowConteiner>

@@ -7,4 +7,11 @@ export default <IResolverMap>{
       return users;
     } catch (error) { }
   },
+  checkUsersById: async (parent, args, { models }, info) => {
+    try {
+      const { email } = args;
+      const user = await models.Users.find({email: email});
+      return user;
+    } catch (error) { }
+  },
 };

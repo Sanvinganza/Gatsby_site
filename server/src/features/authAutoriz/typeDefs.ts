@@ -7,11 +7,11 @@ const typeDefs = `
   
     type Query {
       getUsers: [Users!]!
+      checkUsersById(email: String!): [Users!]!
     }
 
     type Mutation {
       createUsers(username: String!, email: String!, password: String!): [Users!]!
-      updateUsersById(username: String!, email: String!, password: String!): [Users!]!
       deleteUsersById(email: String!): [Users!]!
     }
  
