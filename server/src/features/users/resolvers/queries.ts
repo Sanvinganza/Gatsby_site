@@ -7,4 +7,11 @@ export default <IResolverMap>{
       return users;
     } catch (error) {}
   },
+  getUser: async (parent, args, { models }, info) => {
+    try {
+      const { login, password } = args;
+      const user = await models.Users.find({ login : login, password: password});
+      return user;
+    } catch (error) {}
+  },
 };

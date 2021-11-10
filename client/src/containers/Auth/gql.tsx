@@ -10,6 +10,15 @@ export const CREATE_USER = gql`
   }
 `;
 
+export const GET_USER = gql`
+  query GetUser($login: String!, $password: String!) {
+    getUser(login: $login, password: $password) {
+      login
+      password
+    }
+  }
+`;
+
 export const GET_USERS = gql`
   query {
     getUsers {

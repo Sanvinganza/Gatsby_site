@@ -28,18 +28,18 @@ const SignUp: React.FC = () => {
     refetchQueries: [{ query: GET_USERS }],
   });
 
-  const onSubmit = handleSubmit((data: any) => {
-    alert(JSON.stringify(data));
-  });
-
   const onFormSubmit = (values: any) => {
-    createUsers({
-      variables: {
-        login: values[fieldNames.email],
-        name: values[fieldNames.name],
-        password: values[fieldNames.password],
-      },
-    });
+    if (values[fieldNames.password] === values[fieldNames.confirmPassword]) {
+      createUsers({
+        variables: {
+          login: values[fieldNames.email],
+          name: values[fieldNames.name],
+          password: values[fieldNames.password],
+        },
+      });
+    } else {
+      alert('Пароли не совпадают');
+    }
   };
 
   return (
@@ -68,12 +68,17 @@ const SignUp: React.FC = () => {
           name={fieldNames.password}
         />
         <ErrorMessage errors={errors} name={fieldNames.password} />
-        <AuthInput name="confirmPassword" ref={register} placeholder="Confirm password" />
+        <AuthInput
+          ref={register}
+          placeholder="Confirm password"
+          onChange={e => setValue('confirmPassword', e.target.value)}
+          name={fieldNames.confirmPassword}
+        />
         <AuthSignUpSignIn>
-          {/* <Link to="/SignUp"> */}
-          <AuthTextStyle>Sign up</AuthTextStyle>
-          {/* </Link> */}
-          {/* <Link to="/ResetPassword"> */}
+          <Link to="/SignUp">
+            <AuthTextStyle>Sign up</AuthTextStyle>
+          </Link>
+          {/* <Link to="/"> */}
           <AuthButton type="submit">
             <AuthTextStyle>Sign in</AuthTextStyle>
             <AuthButtonArrow />

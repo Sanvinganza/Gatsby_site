@@ -114,3 +114,17 @@ export const AsideText = styled.div`
     color: #bb6bd9;
   }
 `;
+
+export const UsersContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+`;
+
+export const UserBlock = styled.div`
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
