@@ -3,6 +3,8 @@ import useForm from 'react-hook-form';
 import { fieldNames } from './enumerations';
 import { signUpValidationSchema } from './validations';
 import ErrorMessage from 'components/ErrorMessage';
+import { useMutation } from '@apollo/react-hooks';
+import { CREATE_USER, SIGNUP_USER } from './gql';
 import {
   SignInForm,
   AuthFormName,
@@ -21,9 +23,17 @@ const SignUp: React.FC = () => {
   const { register, handleSubmit, errors } = useForm({
     validationSchema: signUpValidationSchema,
   });
+  const [SignUp] = useMutation(SIGNUP_USER);
 
-  const onSubmit = handleSubmit(data => {
-    console.log('submitted ', data);
+  const onSubmit = handleSubmit(values => {
+    SignUp({
+      variables: {
+        email: values[fieldNames.email],
+        password: values[fieldNames.password],
+        username: values[fieldNames.Name],
+      },
+    });
+    console.log('submitted ', values);
   });
   return (
     <AuthWrapper>

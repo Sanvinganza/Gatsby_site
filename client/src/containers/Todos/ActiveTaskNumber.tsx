@@ -14,11 +14,9 @@ const ActiveTaskNumber: React.FC = () => {
     fetchPolicy: 'cache-and-network',
   });
   let doneCount;
-
   if (data) {
-    doneCount = data.getTodos.filter((el: any) => el.checked).length;
+    doneCount = data.getTodos.filter((el: any) => !el.checked).length;
   }
-
   return (
     <ActiveNumber>{`${doneCount} active ${doneCount === 1 ? 'task' : 'tasks'} `}</ActiveNumber>
   );
