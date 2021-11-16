@@ -13,9 +13,6 @@ const typeDefs = `
     }
 
     type Mutation {
-      createUser(email: String!, username: String!, password: String! ): [Users!] 
-    }
-    extend type Mutation {
       signUp(
         username: String!
         email: String!
@@ -24,10 +21,12 @@ const typeDefs = `
 
       signIn(login: String!, password: String!): Token!
     }
-   
+
     type Token {
-      token: String!
+      userID: ID!
+      token: String!      
     }
+
     schema {
       query: Query
       mutation: Mutation

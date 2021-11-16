@@ -10,27 +10,7 @@ const createToken = async (user: any, secret: any, expiresIn: any) => {
   });
 };
 
-
-export default <IResolverMap>{
-  createUser: async (parent, args, { models }) => {
-    const { email, username, password } = args;
-
-    try {
-      await models
-        .Users({
-          email,
-          username,
-          password
-        })
-        .save();
-
-      const response = await models.Users.find();
-
-      return response;
-    } catch (error) {
-      throw new Error(error.message);
-    }
-  },
+export default <IResolverMap>{ 
   signUp: async (
     parent,
     { username, email, password },
@@ -61,6 +41,6 @@ export default <IResolverMap>{
         throw new AuthenticationError('Invalid password.');
       }
 
-    return { token: createToken(user, secret, '30m') };
+    return { token: createToken(user, secret, '30m'), userID: user.id };
   },
 };

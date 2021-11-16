@@ -11,40 +11,47 @@ import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
-import { ApolloLink } from 'apollo-link';
+import gql from 'graphql-tag';
+import { ApolloLink, from } from 'apollo-link';
 import theme from 'styles/theme';
 import * as serviceWorker from './serviceWorker';
 import App from 'containers/App';
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
 const cache = new InMemoryCache({});
 
-const link = ApolloLink.from([
-  onError(({ graphQLErrors, networkError }) => {
-    if (graphQLErrors) {
-      console.log('[graphQLErrors]', graphQLErrors);
-    }
-    if (networkError) {
-      console.log('[networkError]', networkError);
-    }
-  }),
-  new HttpLink({
-    uri: SERVER_URL,
-    // For server with deifferent domain use "include"
-    credentials: 'same-origin',
-  }),
-]);
+const httpLink = new HttpLink({
+  uri: SERVER_URL,
+  credentials: 'same-origin',
+});
 
-/*const request = async (operation: any) => {
-  const token = await localStorage.getItem('token');
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors)
+    graphQLErrors.forEach(({ message, locations, path }) =>
+      console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`)
+    );
+
+  if (networkError) console.log(`[Network error]: ${networkError}`);
+});
+
+// const request = async (operation: any) => {
+//   const token = await localStorage.getItem('token');
+//   operation.setContext({
+//     headers: {
+//       authorization: token,
+//     },
+//   });
+// };
+const authLink = new ApolloLink((operation, forward) => {
   operation.setContext({
     headers: {
-      authorization: token,
+      authorization: localStorage.getItem('token') || '',
     },
   });
-};*/
-
+  return forward(operation);
+});
 const client = new ApolloClient({
-  link,
+  link: from([authLink, errorLink, httpLink]),
   cache,
 });
 
@@ -62,4 +69,5 @@ ReactDOM.render(
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
+
 serviceWorker.unregister();

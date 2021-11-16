@@ -3,8 +3,10 @@ import useForm from 'react-hook-form';
 import { fieldNames } from './enumerations';
 import { signUpValidationSchema } from './validations';
 import ErrorMessage from 'components/ErrorMessage';
+import FullPageLoader from 'components/Loaders/FullPageLoader';
 import { useMutation } from '@apollo/react-hooks';
-import { CREATE_USER, SIGNUP_USER } from './gql';
+import { useHistory } from 'react-router';
+import { SIGNUP_USER } from './gql';
 import {
   SignInForm,
   AuthFormName,
@@ -20,13 +22,23 @@ import {
 } from './styled';
 
 const SignUp: React.FC = () => {
+  const history = useHistory();
   const { register, handleSubmit, errors } = useForm({
     validationSchema: signUpValidationSchema,
   });
-  const [SignUp] = useMutation(SIGNUP_USER);
-
+  const [signUp, { data, loading, error }] = useMutation(SIGNUP_USER, {
+    onCompleted({ signUp }) {
+      if (signUp) {
+        // localStorage.setItem('token', SignUp.token as string);
+        // localStorage.setItem('userId', SignUp.userID as string);
+        history.push('/SignIn');
+      }
+    },
+  });
+  if (loading) return <FullPageLoader />;
+  if (error) console.log(error.message); //return <p>{error.message}</p>;
   const onSubmit = handleSubmit(values => {
-    SignUp({
+    signUp({
       variables: {
         email: values[fieldNames.email],
         password: values[fieldNames.password],

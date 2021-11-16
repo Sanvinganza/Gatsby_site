@@ -3,8 +3,10 @@ import useForm from 'react-hook-form';
 import { fieldNames } from './enumerations';
 import { signInValidationSchema } from './validations';
 import ErrorMessage from 'components/ErrorMessage';
-import { useLazyQuery, useMutation, useQuery } from '@apollo/react-hooks';
-import { GET_USER, SIGNIN_USER } from './gql';
+import FullPageLoader from 'components/Loaders/FullPageLoader';
+import { useMutation } from '@apollo/react-hooks';
+import { SIGNIN_USER } from './gql';
+import { RouteComponentProps, useHistory, withRouter } from 'react-router';
 import { Redirect } from 'react-router-dom';
 import {
   SignInForm,
@@ -21,48 +23,33 @@ import {
   AuthLogo,
 } from './styled';
 
-// function addServerErrors<T>(
-//   errors: { [P in keyof T]?: string[] },
-//   setError: (
-//     fieldName: keyof T,
-//     error: { type: string; message: string }
-//   ) => void
-// ) {
-//   return Object.keys(errors).forEach((key) => {
-//     setError(key as keyof T, {
-//       type: "server",
-//       message: errors[key as keyof T]!.join(
-//         ". "
-//       ),
-//     });
-//   });
-// }
-
 const SignIn: React.FC = () => {
+  const history = useHistory();
   const { register, handleSubmit, errors, setError } = useForm({
     validationSchema: signInValidationSchema,
   });
 
-  const [SignIn, { data, loading, error }] = useMutation(SIGNIN_USER);
-  if (loading) console.log('Submitting...');
-  if (error) console.log(`Submission error! ${error.message}`);
-
-  const onSubmit = handleSubmit(async (data: any, e: any) => {
-    // e.preventDefault();
-    await SignIn({
+  const [signIn, { data, loading, error }] = useMutation(SIGNIN_USER, {
+    onCompleted({ signIn }) {
+      if (signIn) {
+        localStorage.setItem('token', signIn.token as string);
+        localStorage.setItem('userId', signIn.userID as string);
+        history.push('/');
+      }
+    },
+  });
+  if (loading) return <FullPageLoader />;
+  if (error) console.log(error.message); //return <p>{error.message}</p>;
+  console.log(data);
+  const onSubmit = handleSubmit(async (formData: any, e: any) => {
+    await signIn({
       variables: {
-        login: data[fieldNames.email],
-        password: data[fieldNames.password],
+        login: formData[fieldNames.email],
+        password: formData[fieldNames.password],
       },
     });
-
-    // if (!result.success && result.errors) {
-    //   addServerErrors(result.errors, setError);
-    // if(values) return <Redirect to="/" />
-    // else console.log('opppopopp ', values);
-    console.log('submitted ', data);
+    console.log('submitted ', formData);
   });
-  // const onError = (errors: any, e: any) => console.log(errors, e);
 
   return (
     <AuthWrapper>
@@ -73,7 +60,6 @@ const SignIn: React.FC = () => {
         <ErrorMessage errors={errors} name={fieldNames.email} />
         <AuthFormInput name="password" ref={register} placeholder="Password" />
         <ErrorMessage errors={errors} name={fieldNames.password} />
-
         <AuthFormLinkRight to="ResetPassword">Reset password</AuthFormLinkRight>
         <AuthFormBtnContainer>
           <AuthFormLink to="/SignUp">Sign up</AuthFormLink>
