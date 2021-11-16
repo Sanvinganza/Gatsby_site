@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { signUpValidationSchema } from './validations';
 import { fieldNames } from './enumerations';
 import ErrorMessage from 'components/ErrorMessage';
+import { useHistory } from 'react-router';
 import {
   OurForm,
   InputForm,
@@ -15,51 +16,47 @@ import {
   BackImage,
   LogoImage,
 } from './styleAuth';
-import { CREATE_USERS, GET_USERS, CHECK_USERS } from './gql';
-import { useLazyQuery, useMutation, useQuery } from 'react-apollo';
+import { useMutation } from '@apollo/react-hooks';
+import {SIGNUP_USER } from './gql';
+
 
 const SingUp: React.FC = () => {
+
+  const history = useHistory();
+
+if(localStorage.getItem("token")){
+  history.push("/singIn")
+}
+
   const { register, handleSubmit, errors } = useForm({
     validationSchema: signUpValidationSchema,
   });
-  const [createUsers, { loading }] = useMutation(CREATE_USERS, {
-    refetchQueries: [{ query: GET_USERS }],
+
+  const [signUp, { data, loading, error }] = useMutation(SIGNUP_USER, {
+    onCompleted({ signUp }) {
+      if (signUp) {
+        history.push("/singIn")
+      }
+    }
   });
 
-  React.useEffect(() => {
-    register({ name: fieldNames.Name });
-  });
-
-  const [checkUsers, { data }] = useLazyQuery(CHECK_USERS, {});
-
-  const onSubmit = handleSubmit(e => {
-    checkUsers({
+  const onSubmit = handleSubmit(values => {
+    signUp({
       variables: {
-        email: e.email,
+        email: values[fieldNames.email],
+        password: values[fieldNames.password],
+        username: values[fieldNames.Name],
       },
     });
+    console.log('submitted ', values);
+    
   });
-  if (typeof data === 'object') {
-    if (data.checkUsersById.length === 0) {
-      handleSubmit(e => {
-        createUsers({
-          variables: {
-            username: e.Name,
-            email: e.email,
-            password: e.password,
-          },
-        });
-      });
-      window.location.assign('http://localhost:3000/Todos');
-    } else console.log('bad email');
-  }
-
   return (
     <>
       <BackImage />
       <LogoImage />
       <OurForm onSubmit={onSubmit}>
-        <TextSignIn>Sing up</TextSignIn>
+        <TextSignIn>Sign up</TextSignIn>
 
         <InputForm type={'email'} ref={register} name="email" placeholder="E-mail" />
         <ErrorMessage errors={errors} name={fieldNames.email} />
@@ -83,7 +80,7 @@ const SingUp: React.FC = () => {
             <ResetPassword style={{ margin: '0px', alignSelf: 'center' }}> Sing in</ResetPassword>
           </Link>
           <SignInButton>
-            Sing up <Vector1 />
+          Sign up <Vector1 />
           </SignInButton>
         </SignUpInRowConteiner>
       </OurForm>

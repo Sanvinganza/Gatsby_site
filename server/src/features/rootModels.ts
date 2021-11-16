@@ -1,5 +1,5 @@
 import { Todos } from './todos/model';
-import { Users } from './authAutoriz/model';
+import { Users } from './auth/model';
 /* CODE-GENERATOR - ROOTMODELS IMPORT */
 
 export default {

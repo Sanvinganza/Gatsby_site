@@ -34,7 +34,7 @@ const ResetPas: React.FC = () => {
         <ErrorMessage errors={errors} name={fieldNames.email} />
         <SignUpInRowConteiner>
         <Link to={`/singIn`}>
-            <ResetPassword style={{ margin: '0px', alignSelf: 'center' }}> Sing in</ResetPassword>
+            <ResetPassword style={{ margin: '0px', alignSelf: 'center' }}> Sign in</ResetPassword>
           </Link>
           <SignInButton>
           Reset<Vector1 />

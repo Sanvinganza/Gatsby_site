@@ -1,6 +1,6 @@
 import { mergeSchemas } from 'graphql-tools';
 import todosSchema from './todos/schema';
-import UsersSchema from './authAutoriz/schema';
+import UsersSchema from './auth/schema';
 /* CODE-GENERATOR - ROOTSCEHMA IMPORT */
 
 export default mergeSchemas({

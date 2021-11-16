@@ -37,6 +37,14 @@ const ActiveNumber = styled.div`
   color: ${p => p.theme.colors.primary};
 `;
 
+const LogOut = styled.button`
+display: flex;
+position: relative;
+width: 100px;
+hight: 200px;
+background:${p => p.theme.colors.primary};
+`;
+
 const Todos: React.FC = () => {
   const { loading, error, data } = useQuery(GET_TODOS, {
     notifyOnNetworkStatusChange: true,
@@ -50,6 +58,9 @@ const Todos: React.FC = () => {
     <TodosContainer>
       <Header>
         <div>
+        <LogOut  onClick={e=>{localStorage.removeItem("token");
+      window.location.assign("/singIn")}}>
+        LogOut</LogOut>
           <DateContent>{format(new Date(), 'iiii, LLL d')}</DateContent>
           <ActiveNumber>{taskActiveCount} active tasks</ActiveNumber>
         </div>

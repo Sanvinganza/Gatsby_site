@@ -18,6 +18,16 @@ import App from 'containers/App';
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 const cache = new InMemoryCache({});
 
+const authLink = new ApolloLink((operation, forward) => {
+  operation.setContext({
+    headers: {
+      authorization: localStorage.getItem('token') || '',
+    },
+  });
+
+
+  return forward(operation);
+});
 const link = ApolloLink.from([
   onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors) {
@@ -27,21 +37,13 @@ const link = ApolloLink.from([
       console.log('[networkError]', networkError);
     }
   }),
+  authLink,
   new HttpLink({
     uri: SERVER_URL,
     // For server with deifferent domain use "include"
     credentials: 'same-origin',
   }),
 ]);
-
-/*const request = async (operation: any) => {
-  const token = await localStorage.getItem('token');
-  operation.setContext({
-    headers: {
-      authorization: token,
-    },
-  });
-};*/
 
 const client = new ApolloClient({
   link,

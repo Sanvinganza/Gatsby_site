@@ -6,6 +6,7 @@ import Divider from 'components/Divider/Divider';
 import DeleteTodo from './DeleteTodo';
 import UpdateTodo from './UpdateTodo';
 import { GET_TODOS } from './gql';
+import { useHistory } from 'react-router';
 
 const EmptyContainer = styled.div`
   display: flex;
@@ -47,9 +48,14 @@ const ListsTodos = () => {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: 'cache-and-network',
   });
-
+  const history = useHistory();
   if (loading) return <FullPageLoader />;
-  if (error) return <div style={{ color: 'red' }}>{error.message}</div>;
+  if (error){
+  if (error.message == "Network error: Response not successful: Received status code 400"){
+    localStorage.removeItem("token");
+    history.push("/singIn")
+  }
+    return <div style={{ color: 'red' }}>{error.message}</div>;}
   return (
     <>
       {data.getTodos && data.getTodos.length ? (

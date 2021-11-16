@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { fieldNames } from './enumerations';
 import { signInValidationSchema, signUpValidationSchema } from './validations';
 import ErrorMessage from 'components/ErrorMessage';
+import { useHistory } from 'react-router';
 
 import {
   OurForm,
@@ -17,36 +18,52 @@ import {
   LogoImage,
 } from './styleAuth';
 
-import { CREATE_USERS, GET_USERS } from './gql';
-import { useMutation } from 'react-apollo';
+import {useMutation} from '@apollo/react-hooks';
+import { SIGNIN_USER } from './gql';
 
 const SingIn: React.FC = () => {
-  const { register, handleSubmit, errors } = useForm({
+const history = useHistory();
+
+if(localStorage.getItem("token")){
+  history.push("/Todos")
+}
+  const { register, handleSubmit, errors, setError } = useForm({
     validationSchema: signInValidationSchema,
   });
-  const [createUsers, { loading }] = useMutation(CREATE_USERS, {
-    refetchQueries: [{ query: GET_USERS }],
+
+
+
+  const [signIn, { data, loading, error }] = useMutation(SIGNIN_USER, {
+    onCompleted({ signIn }) {
+      if (signIn) {
+        localStorage.setItem('token', signIn.token as string);
+        // localStorage.setItem('userId', signIn.id as string);
+      }
+    }
   });
 
-  React.useEffect(() => {
-    register({ name: fieldNames.Name });
-  });
+  if (loading) console.log('Submitting...');
+  if (error) {console.log(`Submission error! ${error.message}`)}else{
+  };
 
-  const onSubmit = handleSubmit(data => {
-    createUsers({
+  const onSubmit = handleSubmit(async (info: any, e: any) => {
+    // e.preventDefault();
+    await signIn({
       variables: {
-        username: data.Name,
-        email: data.email,
-        password: data.password,
+        login: info[fieldNames.email],
+        password: info[fieldNames.password],
       },
     });
+   
+    console.log('submitted ', info);
   });
+
   return (
     <>
       <BackImage />
       <LogoImage />
       <OurForm onSubmit={onSubmit}>
-        <TextSignIn>Sing in</TextSignIn>
+        <TextSignIn>Sign in</TextSignIn>
         <InputForm
           type={'email'}
           ref={register({ required: true })}
@@ -65,11 +82,11 @@ const SingIn: React.FC = () => {
           <ResetPassword>Reset password</ResetPassword>
         </Link>
         <SignUpInRowConteiner>
-          <Link to={`/singUp`}>
+          <Link to={`/`}>
             <ResetPassword style={{ margin: '0px', alignSelf: 'center' }}> Sing up</ResetPassword>
           </Link>
           <SignInButton type="submit">
-            Sing in <Vector1 />
+          Sign in <Vector1 />
           </SignInButton>
         </SignUpInRowConteiner>
       </OurForm>
