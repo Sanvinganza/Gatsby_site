@@ -34,17 +34,14 @@ const SignUp: React.FC<any> = () => {
       variables: {
         email: data.email,
         password: data.password,
-        name: data.name
+        name: data.name,
       },
     });
 
     response.catch(() => {
-      setError("email", 
-        "manual",
-        "Email already exist!"
-      );
-    })
-      
+      setError('email', 'manual', 'Email already exist!');
+    });
+
     setValue('email', '');
     setValue('name', '');
     setValue('password', '');
@@ -56,20 +53,38 @@ const SignUp: React.FC<any> = () => {
       <Container onSubmit={handleSubmit(onSubmit)}>
         <Title>Sign up</Title>
 
-        <Input type="email" name={fieldNames.email} placeholder="E-mail" ref={register} onChange={e => {
-          setValue('email', e.target.value);
-        }} />
+        <Input
+          type="email"
+          name={fieldNames.email}
+          placeholder="E-mail"
+          ref={register}
+          onChange={e => {
+            setValue('email', e.target.value);
+          }}
+        />
         <ErrorMessage errors={errors} name={fieldNames.email} />
 
-        <Input type="text" name={fieldNames.name} placeholder="Name" ref={register} onChange={e => {
-          setValue('name', e.target.value)
-        }} />
+        <Input
+          type="text"
+          name={fieldNames.name}
+          placeholder="Name"
+          ref={register}
+          onChange={e => {
+            setValue('name', e.target.value);
+          }}
+        />
         <ErrorMessage errors={errors} name={fieldNames.name} />
 
-        <Input type="password" placeholder="Password" name={fieldNames.password} ref={register} onChange={e => {
-          setValue('password', e.target.value)
-          console.log(e.target.value)
-        }} />
+        <Input
+          type="password"
+          placeholder="Password"
+          name={fieldNames.password}
+          ref={register}
+          onChange={e => {
+            setValue('password', e.target.value);
+            console.log(e.target.value);
+          }}
+        />
         <ErrorMessage errors={errors} name={fieldNames.password} />
 
         <Input
@@ -82,10 +97,7 @@ const SignUp: React.FC<any> = () => {
 
         <SignForm>
           <SignLink to="/SignIn">Sign in</SignLink>
-          <Button
-            type="submit"
-            style={SignInStyle}
-          >
+          <Button type="submit" style={SignInStyle}>
             Sign up &nbsp; &nbsp; &rarr;
           </Button>
         </SignForm>
