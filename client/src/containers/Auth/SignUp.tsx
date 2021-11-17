@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useForm from 'react-hook-form';
 import {
   Background,
@@ -17,7 +17,7 @@ import { CREATE_USER, GET_USERS } from './gql';
 import { useMutation } from '@apollo/react-hooks';
 
 const SignUp: React.FC<any> = () => {
-  const { register, errors, handleSubmit, setValue } = useForm({
+  const { register, errors, handleSubmit, setValue, getValues, setError } = useForm({
     validationSchema: SignUpSchema,
   });
 
@@ -30,14 +30,25 @@ const SignUp: React.FC<any> = () => {
   });
 
   const onSubmit = (data: any) => {
-    createUsers({
+    const response = createUsers({
       variables: {
         email: data.email,
         password: data.password,
         name: data.name
       },
     });
-    console.log('submitted ', data);
+
+    response.catch(() => {
+      setError("email", 
+        "manual",
+        "Email already exist!"
+      );
+    })
+      
+    setValue('email', '');
+    setValue('name', '');
+    setValue('password', '');
+    setValue('confirmPassword', '');
   };
 
   return (
@@ -45,20 +56,20 @@ const SignUp: React.FC<any> = () => {
       <Container onSubmit={handleSubmit(onSubmit)}>
         <Title>Sign up</Title>
 
-        <Input type="email" name={fieldNames.email} placeholder="E-mail" ref={register}  onChange={e => {
-            setValue('email', e.target.value)
-          }}/>
+        <Input type="email" name={fieldNames.email} placeholder="E-mail" ref={register} onChange={e => {
+          setValue('email', e.target.value);
+        }} />
         <ErrorMessage errors={errors} name={fieldNames.email} />
 
         <Input type="text" name={fieldNames.name} placeholder="Name" ref={register} onChange={e => {
-            setValue('name', e.target.value)
-          }}/>
+          setValue('name', e.target.value)
+        }} />
         <ErrorMessage errors={errors} name={fieldNames.name} />
 
         <Input type="password" placeholder="Password" name={fieldNames.password} ref={register} onChange={e => {
-            setValue('password', e.target.value)
-            console.log(e.target.value)
-          }}/>
+          setValue('password', e.target.value)
+          console.log(e.target.value)
+        }} />
         <ErrorMessage errors={errors} name={fieldNames.password} />
 
         <Input
@@ -72,9 +83,9 @@ const SignUp: React.FC<any> = () => {
         <SignForm>
           <SignLink to="/SignIn">Sign in</SignLink>
           <Button
-            type="submit" 
+            type="submit"
             style={SignInStyle}
-            >
+          >
             Sign up &nbsp; &nbsp; &rarr;
           </Button>
         </SignForm>

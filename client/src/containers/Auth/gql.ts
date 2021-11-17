@@ -2,10 +2,18 @@ import gql from 'graphql-tag';
 
 export const GET_USERS = gql`
   query {
-    getTodos {
+    getUsers {
       email
       password
       name
+    }
+  }
+`;
+
+export const GET_USER_BY_EMAIL = gql`
+  query getUserByEmail($email: String!){
+    getUserByEmail(email: $email){
+      email
     }
   }
 `;

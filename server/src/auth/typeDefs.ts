@@ -8,6 +8,7 @@ const typeDefs = `
   
     type Query {
       getUsers: [Users!]!
+      getUserByEmail(email: String!): Users!
     }
 
     type Mutation {

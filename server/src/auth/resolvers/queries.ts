@@ -12,4 +12,13 @@ export default <IResolverMap>{
         throw new Error(error.message);
     }
   },
+  getUserByEmail: async (parent, args, { models }, info) => {
+    try {
+      const { email } = args;
+      const user = await models.Users.findOne({ email: email});
+      return user;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
 };
