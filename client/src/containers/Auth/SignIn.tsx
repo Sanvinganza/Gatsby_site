@@ -21,7 +21,7 @@ import {
 import {useMutation} from '@apollo/react-hooks';
 import { SIGNIN_USER } from './gql';
 
-const SingIn: React.FC = () => {
+const SignIn: React.FC = () => {
 const history = useHistory();
 
 if(localStorage.getItem("token")){
@@ -78,6 +78,7 @@ if(localStorage.getItem("token")){
           placeholder="Password"
         />
         <ErrorMessage errors={errors} name={fieldNames.password} />
+        <p style={{color: "#ff4161"}}>{error ? "Password or email entered incorrectly" : null}</p>
         <Link to={`/resetPas`} style={{ alignSelf: 'flex-end' }}>
           <ResetPassword>Reset password</ResetPassword>
         </Link>
@@ -93,4 +94,4 @@ if(localStorage.getItem("token")){
     </>
   );
 };
-export default SingIn;
+export default SignIn;

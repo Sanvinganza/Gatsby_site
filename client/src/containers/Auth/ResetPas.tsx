@@ -33,7 +33,7 @@ const ResetPas: React.FC = () => {
         <InputForm type={'email'} ref={register} name="email" placeholder="E-mail" />
         <ErrorMessage errors={errors} name={fieldNames.email} />
         <SignUpInRowConteiner>
-        <Link to={`/singIn`}>
+        <Link to={`/signIn`}>
             <ResetPassword style={{ margin: '0px', alignSelf: 'center' }}> Sign in</ResetPassword>
           </Link>
           <SignInButton>

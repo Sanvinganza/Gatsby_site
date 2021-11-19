@@ -53,7 +53,7 @@ const ListsTodos = () => {
   if (error){
   if (error.message == "Network error: Response not successful: Received status code 400"){
     localStorage.removeItem("token");
-    history.push("/singIn")
+    history.push("/signIn")
   }
     return <div style={{ color: 'red' }}>{error.message}</div>;}
   return (

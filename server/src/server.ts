@@ -30,8 +30,7 @@ const app: express.Application = express();
 
 const getMe = async (req: any) => {
   const token = req.headers['authorization'];
- console.log(token);
- 
+   
   if (token) {
     try {
       return await jwt.verify(token, SECRET);
@@ -48,6 +47,7 @@ const server = new ApolloServer({
   schema: rootSchema,
   context: async ({ req }) => {
     const me = await getMe(req);
+    console.log(me)
     return {
       models: rootModels,
       me,

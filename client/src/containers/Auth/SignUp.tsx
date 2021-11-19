@@ -17,7 +17,7 @@ import {
   LogoImage,
 } from './styleAuth';
 import { useMutation } from '@apollo/react-hooks';
-import {SIGNUP_USER } from './gql';
+import { SIGNUP_USER } from './gql';
 
 
 const SingUp: React.FC = () => {
@@ -25,7 +25,7 @@ const SingUp: React.FC = () => {
   const history = useHistory();
 
 if(localStorage.getItem("token")){
-  history.push("/singIn")
+  history.push("/Todos")
 }
 
   const { register, handleSubmit, errors } = useForm({
@@ -35,7 +35,7 @@ if(localStorage.getItem("token")){
   const [signUp, { data, loading, error }] = useMutation(SIGNUP_USER, {
     onCompleted({ signUp }) {
       if (signUp) {
-        history.push("/singIn")
+        history.push("/signIn");
       }
     }
   });
@@ -60,7 +60,8 @@ if(localStorage.getItem("token")){
 
         <InputForm type={'email'} ref={register} name="email" placeholder="E-mail" />
         <ErrorMessage errors={errors} name={fieldNames.email} />
-
+        <p style={{color: "#ff4161"}}>{error ? "This email is already in use" : null}</p>
+        
         <InputForm type={'text'} ref={register} name="Name" placeholder="Name" />
         <ErrorMessage errors={errors} name={fieldNames.Name} />
 
@@ -76,7 +77,7 @@ if(localStorage.getItem("token")){
         <ErrorMessage errors={errors} name={fieldNames.confirmPassword} />
 
         <SignUpInRowConteiner>
-          <Link to={`/singIn`}>
+          <Link to={`/signIn`}>
             <ResetPassword style={{ margin: '0px', alignSelf: 'center' }}> Sing in</ResetPassword>
           </Link>
           <SignInButton>
