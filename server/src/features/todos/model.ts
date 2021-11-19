@@ -10,6 +10,6 @@ const TodosSchema: Schema = new Schema({
   task: { type: String, required: true },
 });
 
-const Todos = mongoose.model<ITodos>('Todos', TodosSchema);
+const Todos = mongoose.model<ITodos>('Todo', TodosSchema);
 
 export { Todos };

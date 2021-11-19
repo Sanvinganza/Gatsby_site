@@ -24,7 +24,7 @@ const CreateTodosForm = styled.form`
 `;
 
 const CreateTodos: React.FC<{}> = () => {
-  const { register, handleSubmit, setValue, errors } = useForm({
+  const { register, handleSubmit, setValue, errors, reset } = useForm({
     validationSchema: createTodoValidationSchema,
   });
 
@@ -44,7 +44,6 @@ const CreateTodos: React.FC<{}> = () => {
       },
     });
   };
-
   return (
     <CreateTodosForm onSubmit={handleSubmit(onFormSubmit)}>
       <div>
