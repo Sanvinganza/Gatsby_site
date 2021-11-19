@@ -21,9 +21,7 @@ type FormValues = {
 
 const ResetPassword: React.FC = () => {
   const { register, handleSubmit } = useForm<FormValues>();
-  const onSubmit = handleSubmit(data => {
-    console.log('submitted ', data);
-  });
+  const onSubmit = handleSubmit(data => {});
   return (
     <AuthWrapper>
       <AuthLogo />

@@ -15,8 +15,6 @@ const ErrorMessage = ({ errors, name }: IErrorMessage) => {
   // const { errors } = useFormContext();
   if (!errors[name]) return null;
 
-  // console.log(errors);
-
   return <Message>{errors[name].message}</Message>;
 };
 

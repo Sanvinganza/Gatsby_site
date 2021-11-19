@@ -20,6 +20,10 @@ const typeDefs = `
       ): Token!
 
       signIn(login: String!, password: String!): Token!
+
+      updateUser(id: String, login: String, username: String, password: String ): [Users!]
+      
+      deleteUserById(id: String!): [Users!]
     }
 
     type Token {

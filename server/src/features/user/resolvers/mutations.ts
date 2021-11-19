@@ -44,9 +44,32 @@ export default <IResolverMap>{
     if(validPassword){
         throw new AuthenticationError('Invalid password.');
       }
-    // if(password!==user.password){
-    //     throw new AuthenticationError('Invalid password.');
-    //   }
+   
     return { token: createToken(user, secret, '30m'), userID: user.id };
   },
+  updateUser: async (parent, args, { models }) => {
+    const { id, login, username, password } = args;
+    
+    try {
+      const user = await models.Users.findById(id);
+      let hashPassword = bcrypt.hashSync(password, 7);
+      await user.set({ login: login, username: username, password: hashPassword  });
+      await user.save();
+      const users = await models.Users.find();
+      return users;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
+  deleteUserById: async (parent, args, { models }) => {
+    const { id } = args;
+
+    try {
+      await models.Users.deleteOne({ _id: id });
+      const users = await models.Users.find();
+      return users;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
 };

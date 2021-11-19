@@ -28,11 +28,11 @@ const MainPage: React.FC = () => {
         <Sidebar />
         <BodyMain>
           {data.getUsers && data.getUsers.length ? (
-            data.getUsers.map((user: { login: string; password: string }, index: number) => {
+            data.getUsers.map((user: { email: string; password: string }, index: number) => {
               return (
                 <React.Fragment key={index}>
                   <UsersContainer>
-                    <UserBlock>Login : {user.login}</UserBlock>
+                    <UserBlock>Login : {user.email}</UserBlock>
                     <UserBlock>Password: {user.password}</UserBlock>
                   </UsersContainer>
                 </React.Fragment>
