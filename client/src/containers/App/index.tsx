@@ -2,15 +2,18 @@ import React, { Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { GlobalStyle } from 'styles/global';
 import Auth from 'containers/Auth';
-import SignIn from 'containers/Auth/SignIn';
-import SignUp from 'containers/Auth/SignUp';
-import ResetPassword from 'containers/Auth/ResetPassword';
+
 import FullPageLoader from 'components/Loaders/FullPageLoader';
 import { AuthContext } from 'context/authContex';
 import { useHistory } from 'react-router';
 import { useState } from 'react';
 
 const Todos = React.lazy(() => import('containers/Todos'));
+const SignIn = React.lazy(() => import('containers/Auth/SignIn'));
+const SignUp = React.lazy(() => import('containers/Auth/SignUp'));
+const ResetPassword = React.lazy(() => import('containers/Auth/ResetPassword'));
+
+const MainPage = React.lazy(() => import('containers/MainPage/MainPage'));
 
 const App: React.FC = () => {
   const history = useHistory();
@@ -36,6 +39,7 @@ const App: React.FC = () => {
 
   return (
     <Suspense fallback={FullPageLoader}>
+      {/* <<<<<<< HEAD */}
       <AuthContext.Provider value={{ token, userID, login: login, logout: logout }}>
         <Switch>
           {!token && <Redirect from="/" to="signIn" exact />}
@@ -49,6 +53,9 @@ const App: React.FC = () => {
           <Route exact path="/auth">
             <Auth name="Auth" />
           </Route>
+          <Route exact path="/MainPage">
+            <MainPage />
+          </Route>
           <Route exact path="/signIn">
             <SignIn />
           </Route>
@@ -60,6 +67,25 @@ const App: React.FC = () => {
           </Route>
         </Switch>
       </AuthContext.Provider>
+      {/* =======
+      <Switch>
+        <Route exact path="/Todos">
+          <Todos />
+        </Route>
+        <Route exact path="/">
+          <SignIn />
+        </Route>
+        <Route exact path="/SignUp">
+          <SignUp />
+        </Route>
+        <Route exact path="/ResetPassword">
+          <ResetPassword />
+        </Route>
+        <Route exact path="/MainPage">
+          <MainPage />
+        </Route>
+      </Switch>
+>>>>>>> origin/feature/1-DS-authFormPage */}
       <GlobalStyle />
     </Suspense>
   );

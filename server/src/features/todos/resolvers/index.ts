@@ -5,3 +5,4 @@ export default {
   Query: queries,
   Mutation: mutations,
 };
+

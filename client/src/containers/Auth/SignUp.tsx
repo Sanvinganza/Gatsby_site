@@ -27,7 +27,7 @@ const SignUp: React.FC = () => {
   const { register, handleSubmit, errors } = useForm({
     validationSchema: signUpValidationSchema,
   });
-  const [signUp, { data, loading, error }] = useMutation(SIGNUP_USER, {
+  const [signUp, { loading, error }] = useMutation(SIGNUP_USER, {
     onCompleted({ signUp }) {
       if (signUp) {
         history.push('/signIn');

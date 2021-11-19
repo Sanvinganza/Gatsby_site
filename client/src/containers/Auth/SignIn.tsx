@@ -8,7 +8,7 @@ import FullPageLoader from 'components/Loaders/FullPageLoader';
 import { useMutation } from '@apollo/react-hooks';
 import { SIGNIN_USER } from './gql';
 import { useHistory } from 'react-router';
-import { useAuthContext, AuthContext } from 'context/authContex';
+import { AuthContext } from 'context/authContex';
 
 import {
   SignInForm,
@@ -28,11 +28,11 @@ import {
 
 const SignIn: React.FC = () => {
   const history = useHistory();
-  const { register, handleSubmit, errors, setError } = useForm({
+  const { register, handleSubmit, errors } = useForm({
     validationSchema: signInValidationSchema,
   });
-  const { login, logout } = useContext(AuthContext);
-  const [signIn, { data, loading, error }] = useMutation(SIGNIN_USER, {
+  const { login } = useContext(AuthContext);
+  const [signIn, { loading, error }] = useMutation(SIGNIN_USER, {
     onCompleted({ signIn }) {
       if (signIn) {
         login(signIn.token, signIn.userID);
@@ -49,7 +49,6 @@ const SignIn: React.FC = () => {
         password: formData[fieldNames.password],
       },
     });
-    console.log('submitted ', formData);
   });
 
   return (
