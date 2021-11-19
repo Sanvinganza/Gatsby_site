@@ -1,11 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import { format } from 'date-fns';
+import { GET_TODOS } from './gql';
+import { useQuery } from 'react-apollo';
 import CreateTodos from './CreateTodos';
 import ListsTodos from './ListsTodos';
 import Divider from 'components/Divider/Divider';
+import { useHistory } from 'react-router-dom';
 import ActiveTaskNumber from './ActiveTaskNumber';
-
+import { useContext } from 'react';
+import { AuthContext } from 'context/authContex';
 const TodosContainer = styled.div`
   color: #fafafa;
   position: absolute;
@@ -31,11 +35,30 @@ const DateContent = styled.div`
   font-size: 18px;
 `;
 
+const LogOut = styled.button`
+  display: flex;
+  position: relative;
+  width: 100px;
+  hight: 200px;
+  background: ${p => p.theme.colors.primary};
+`;
+
 const Todos: React.FC = () => {
+  const history = useHistory();
+  const { logout } = useContext(AuthContext);
+  const { loading, error, data } = useQuery(GET_TODOS, {
+    notifyOnNetworkStatusChange: true,
+    fetchPolicy: 'cache-and-network',
+  });
+
+  let taskActiveCount;
+  if (data) taskActiveCount = data.getTodos.filter((el: any) => !el.checked).length;
+
   return (
     <TodosContainer>
       <Header>
         <div>
+          <LogOut onClick={logout}>LogOut</LogOut>
           <DateContent>{format(new Date(), 'iiii, LLL d')}</DateContent>
           <ActiveTaskNumber />
         </div>

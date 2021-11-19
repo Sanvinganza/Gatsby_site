@@ -6,6 +6,11 @@ import Profile from '../../assets/images/mainPage/Profile.svg';
 import Settings from '../../assets/images/mainPage/settings.svg';
 import Statistics from '../../assets/images/mainPage/Statistics.svg';
 
+export const MainPageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 export const AboutSVG = styled.div`
   margin-right: 10px;
   width: 16px;
@@ -68,7 +73,7 @@ export const HeaderContainer = styled.div`
   justify-content: flex-end;
   display: flex;
   flex-direction: row;
-  width: 1210px;
+  width: 100%;
   min-height: 70px;
   background: #282939;
 `;
@@ -76,6 +81,8 @@ export const HeaderContainer = styled.div`
 export const BodyContainer = styled.body`
   display: flex;
   flex-direction: row;
+  min-height: calc(100vh - 70px);
+  height: calc(100% - 70px);
 `;
 
 export const BodyAside = styled.aside`
@@ -83,13 +90,12 @@ export const BodyAside = styled.aside`
   padding-top: 40px;
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  width: 230px;
+
+  min-width: 230px;
   background: #282939;
 `;
 
 export const BodyMain = styled.div`
-  height: 100vh;
   width: calc(100vw - 230px);
   background: #3d3e4d;
 `;

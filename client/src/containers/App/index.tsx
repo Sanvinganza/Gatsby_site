@@ -39,7 +39,6 @@ const App: React.FC = () => {
 
   return (
     <Suspense fallback={FullPageLoader}>
-      {/* <<<<<<< HEAD */}
       <AuthContext.Provider value={{ token, userID, login: login, logout: logout }}>
         <Switch>
           {!token && <Redirect from="/" to="signIn" exact />}
@@ -67,25 +66,6 @@ const App: React.FC = () => {
           </Route>
         </Switch>
       </AuthContext.Provider>
-      {/* =======
-      <Switch>
-        <Route exact path="/Todos">
-          <Todos />
-        </Route>
-        <Route exact path="/">
-          <SignIn />
-        </Route>
-        <Route exact path="/SignUp">
-          <SignUp />
-        </Route>
-        <Route exact path="/ResetPassword">
-          <ResetPassword />
-        </Route>
-        <Route exact path="/MainPage">
-          <MainPage />
-        </Route>
-      </Switch>
->>>>>>> origin/feature/1-DS-authFormPage */}
       <GlobalStyle />
     </Suspense>
   );

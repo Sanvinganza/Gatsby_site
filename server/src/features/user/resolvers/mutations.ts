@@ -1,6 +1,8 @@
 import { IResolverMap } from "interfaces/IResolvers";
 import jwt from 'jsonwebtoken';
 import { AuthenticationError, UserInputError } from 'apollo-server';
+import bcrypt from 'bcrypt'
+
 
 
 const createToken = async (user: any, secret: any, expiresIn: any) => {
@@ -16,6 +18,7 @@ export default <IResolverMap>{
     { username, email, password },
     { models, secret },
   ) => {
+    password = bcrypt.hashSync(password, 7);
     const user = await models.Users.create({
       username,
       email,
@@ -36,10 +39,14 @@ export default <IResolverMap>{
         'No user found with this login credentials.',
       );
     }
-     
-    if(password!==user.password){
+    const hashpassword = bcrypt.hashSync(password, 7);
+    const validPassword = bcrypt.compareSync(hashpassword, user.password)
+    if(validPassword){
         throw new AuthenticationError('Invalid password.');
       }
+    // if(password!==user.password){
+    //     throw new AuthenticationError('Invalid password.');
+    //   }
     return { token: createToken(user, secret, '30m'), userID: user.id };
   },
 };

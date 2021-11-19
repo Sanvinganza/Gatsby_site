@@ -8,6 +8,6 @@ export default <IResolverMap>{
     try {
       const todos = await models.Todos.find();
       return todos;
-    } catch (error) {}
+    } catch (error) { }
   },
 };

@@ -1,3 +1,4 @@
+
 import express from "express";
 import dotenv from "dotenv";
 import { ApolloServer, AuthenticationError, gql } from "apollo-server-express";
@@ -21,9 +22,9 @@ dotenv.config();
 
 const SERVER_PORT = process.env.SERVER_PORT || 4000;
 // @dev Handling of secret
+const SECRET= 'wr3r23fwfwefwekwself.2456342.dawqdq'
 // const SECRET = process.env.SECRET;
 // const SECRET_2 = process.env.SECRET_2;
-const SECRET= 'wr3r23fwfwefwekwself.2456342.dawqdq'
 const app: express.Application = express();
 
 const getMe = async (req: any) => {
@@ -65,6 +66,5 @@ mongooseConnect();
 server.applyMiddleware({ app, cors: corsOptions });
 app.listen({ port: SERVER_PORT }, () =>
   console.log(
-    `🚀 Server ready at http://localhost:${SERVER_PORT}${server.graphqlPath}`
-  )
-);
+    `🚀 Server ready at http://localhost:${SERVER_PORT}${server.graphqlPath}  `
+  ));

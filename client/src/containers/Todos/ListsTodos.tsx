@@ -8,6 +8,7 @@ import DeleteTodo from './DeleteTodo';
 import UpdateTodo from './UpdateTodo';
 import { AuthContext } from 'context/authContex';
 import { GET_TODOS } from './gql';
+import { useHistory } from 'react-router';
 
 const EmptyContainer = styled.div`
   display: flex;
@@ -50,7 +51,7 @@ const ListsTodos = () => {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: 'cache-and-network',
   });
-
+  const history = useHistory();
   if (loading) return <FullPageLoader />;
   if (error) {
     logout();
