@@ -1,10 +1,12 @@
 import React from 'react';
+import { useContext } from 'react';
 import styled from 'styled-components';
 import { useQuery } from '@apollo/react-hooks';
 import FullPageLoader from 'components/Loaders/FullPageLoader';
 import Divider from 'components/Divider/Divider';
 import DeleteTodo from './DeleteTodo';
 import UpdateTodo from './UpdateTodo';
+import { AuthContext } from 'context/authContex';
 import { GET_TODOS } from './gql';
 
 const EmptyContainer = styled.div`
@@ -43,16 +45,19 @@ const ListsContent = styled.div<IListsContent>`
 `;
 
 const ListsTodos = () => {
+  const { logout } = useContext(AuthContext);
   const { loading, error, data } = useQuery(GET_TODOS, {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: 'cache-and-network',
   });
 
   if (loading) return <FullPageLoader />;
-  if (error) return <div style={{ color: 'red' }}>{error.message}</div>;
+  if (error) {
+    logout();
+  }
   return (
     <>
-      {data.getTodos && data.getTodos.length ? (
+      {data && data.getTodos && data.getTodos.length ? (
         data.getTodos.map((todo: { id: string; task: string; checked: boolean }, index: number) => {
           return (
             <React.Fragment key={index}>

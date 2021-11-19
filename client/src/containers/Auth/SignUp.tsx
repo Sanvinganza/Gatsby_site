@@ -19,6 +19,7 @@ import {
   AuthWrapper,
   AuthLogo,
   AuthFormLink,
+  AuthErrorWrapper,
 } from './styled';
 
 const SignUp: React.FC = () => {
@@ -29,14 +30,12 @@ const SignUp: React.FC = () => {
   const [signUp, { data, loading, error }] = useMutation(SIGNUP_USER, {
     onCompleted({ signUp }) {
       if (signUp) {
-        // localStorage.setItem('token', SignUp.token as string);
-        // localStorage.setItem('userId', SignUp.userID as string);
-        history.push('/SignIn');
+        history.push('/signIn');
       }
     },
   });
   if (loading) return <FullPageLoader />;
-  if (error) console.log(error.message); //return <p>{error.message}</p>;
+
   const onSubmit = handleSubmit(values => {
     signUp({
       variables: {
@@ -52,6 +51,7 @@ const SignUp: React.FC = () => {
       <AuthLogo />
       <SignInForm onSubmit={onSubmit}>
         <AuthFormName>Sign Up</AuthFormName>
+        {error ? <AuthErrorWrapper> {error.message}</AuthErrorWrapper> : null}
         <AuthFormInput name="email" ref={register} placeholder="E-Mail" />
         <ErrorMessage errors={errors} name={fieldNames.email} />
         <AuthFormInput name="Name" ref={register} placeholder="Name" />

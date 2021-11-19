@@ -40,7 +40,6 @@ export default <IResolverMap>{
     if(password!==user.password){
         throw new AuthenticationError('Invalid password.');
       }
-
     return { token: createToken(user, secret, '30m'), userID: user.id };
   },
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useContext } from 'react';
 import useForm from 'react-hook-form';
 import { fieldNames } from './enumerations';
 import { signInValidationSchema } from './validations';
@@ -6,8 +7,9 @@ import ErrorMessage from 'components/ErrorMessage';
 import FullPageLoader from 'components/Loaders/FullPageLoader';
 import { useMutation } from '@apollo/react-hooks';
 import { SIGNIN_USER } from './gql';
-import { RouteComponentProps, useHistory, withRouter } from 'react-router';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router';
+import { useAuthContext, AuthContext } from 'context/authContex';
+
 import {
   SignInForm,
   AuthFormName,
@@ -21,6 +23,7 @@ import {
   AuthFormLink,
   AuthWrapper,
   AuthLogo,
+  AuthErrorWrapper,
 } from './styled';
 
 const SignIn: React.FC = () => {
@@ -28,19 +31,17 @@ const SignIn: React.FC = () => {
   const { register, handleSubmit, errors, setError } = useForm({
     validationSchema: signInValidationSchema,
   });
-
+  const { login, logout } = useContext(AuthContext);
   const [signIn, { data, loading, error }] = useMutation(SIGNIN_USER, {
     onCompleted({ signIn }) {
       if (signIn) {
-        localStorage.setItem('token', signIn.token as string);
-        localStorage.setItem('userId', signIn.userID as string);
-        history.push('/');
+        login(signIn.token, signIn.userID);
+        history.push('/todos');
       }
     },
   });
   if (loading) return <FullPageLoader />;
-  if (error) console.log(error.message); //return <p>{error.message}</p>;
-  console.log(data);
+
   const onSubmit = handleSubmit(async (formData: any, e: any) => {
     await signIn({
       variables: {
@@ -56,6 +57,7 @@ const SignIn: React.FC = () => {
       <AuthLogo />
       <SignInForm onSubmit={onSubmit}>
         <AuthFormName>Sign In</AuthFormName>
+        {error ? <AuthErrorWrapper> {error.message}</AuthErrorWrapper> : null}
         <AuthFormInput name="email" ref={register} placeholder="E-Mail" />
         <ErrorMessage errors={errors} name={fieldNames.email} />
         <AuthFormInput name="password" ref={register} placeholder="Password" />

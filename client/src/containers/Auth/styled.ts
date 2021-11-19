@@ -67,7 +67,9 @@ export const AuthFormSubmitBtnSvg = styled.p`
 export const AuthFormSubmitBtnText = styled.p`
   margin: 0;
 `;
-
+export const AuthErrorWrapper = styled.p`
+  color: tomato;
+`;
 export const AuthFormLink: any = styled(Link)`
   font-style: normal;
   font-weight: normal;

@@ -11,7 +11,6 @@ import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
-import gql from 'graphql-tag';
 import { ApolloLink, from } from 'apollo-link';
 import theme from 'styles/theme';
 import * as serviceWorker from './serviceWorker';
@@ -33,15 +32,6 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 
   if (networkError) console.log(`[Network error]: ${networkError}`);
 });
-
-// const request = async (operation: any) => {
-//   const token = await localStorage.getItem('token');
-//   operation.setContext({
-//     headers: {
-//       authorization: token,
-//     },
-//   });
-// };
 const authLink = new ApolloLink((operation, forward) => {
   operation.setContext({
     headers: {
