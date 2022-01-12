@@ -21,7 +21,6 @@ export const AuthLogo = styled.div`
   height: 52px;
   left: 35px;
   top: 35px;
-  background: no-repeat url(${Logo});
 `;
 export const AuthForm: any = styled.form`
   padding: 30px;
